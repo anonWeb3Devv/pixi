@@ -1,5 +1,12 @@
+import { Dino } from "./components/dino";
+import { Ground } from "./components/dino/ground";
+
 function App() {
-  return <h1>PIXI</h1>;
+  return (
+    <>
+      <Dino />
+    </>
+  );
 }
 
 export default App;
