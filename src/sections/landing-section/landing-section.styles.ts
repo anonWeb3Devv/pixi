@@ -5,40 +5,39 @@ export const LandingContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100svh;
+  height: 100dvh;
   position: relative;
   overflow: hidden;
+  background: lightblue;
 `;
 
 export const LandingHeading = styled.h1`
-  font-family: "PlanetOfTheApes";
+  font-family: "Handjet-Light";
   margin-top: 80px;
-  font-size: 128px;
+  font-size: 80px;
   text-align: center;
-  color: #fff;
+  color: #000;
+  text-transform: uppercase;
+
+  @media screen and (max-width: 768px) {
+    font-size: 32px;
+  }
 `;
 
 export const LandingHintText = styled.span`
-  font-family: "DotGothic16", sans-serif;
+  font-family: "Handjet-Light";
   margin-top: 40px;
-  /* position: absolute; */
   text-align: center;
-  width: 40ch;
-  top: 400px;
+  width: 50ch;
+  bottom: 50px;
   font-size: 25px;
-
   cursor: pointer;
-`;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  border: #000 dotted;
+  margin-bottom: -50px;
 
-export const LandingHintText2 = styled(LandingHintText)`
-  width: 30ch;
-  text-align: center;
-`;
-
-export const LandingHintText3 = styled(LandingHintText)``;
-
-export const LandingHint4 = styled.span`
-  display: inline-block;
-  margin-right: 30px;
-  text-align: center;
+  @media screen and (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
