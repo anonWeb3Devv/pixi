@@ -11,7 +11,13 @@ export function Header() {
       <Navigation>
         <NavItemContainer>
           <NavItemSpan>
-            <Link spy={true} smooth={true} duration={100} to="home">
+            <Link
+              spy={true}
+              smooth={true}
+              duration={100}
+              to="home"
+              onClick={scrollToTop}
+            >
               <svg
                 viewBox="0 0 1024 1024"
                 fill="currentColor"
