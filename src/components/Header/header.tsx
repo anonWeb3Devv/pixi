@@ -1,8 +1,12 @@
-import { NavItemContainer, Navigation, NavItemSpan } from "./header-styles";
+import {
+  NavItemContainer,
+  Navigation,
+  NavItemSpan,
+  MobileNavToggle,
+} from "./header-styles";
 import { Link } from "react-scroll";
 import { useEffect, useState } from "react";
 import { MobileNav } from "../Mobile-Nav";
-import { MobileNavOpen, MobileNavClose } from "../Mobile-Nav/mobile-nav.styles";
 
 export function Header() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -14,12 +18,8 @@ export function Header() {
     setIsMobileNavOpen(false);
   }
 
-  function openMobileNav() {
-    setIsMobileNavOpen(true);
-  }
-
-  function closeMobileNav() {
-    setIsMobileNavOpen(false);
+  function toggleMobileNav() {
+    setIsMobileNavOpen((prevState) => !prevState);
   }
 
   useEffect(() => {
@@ -71,46 +71,77 @@ export function Header() {
               </Link>
             </NavItemSpan>
             <NavItemSpan>
-              <Link spy={true} smooth={true} duration={100} to="about">
+              <Link
+                spy={true}
+                smooth={true}
+                duration={100}
+                to="about"
+                onClick={scrollToTop}
+              >
                 about
               </Link>
             </NavItemSpan>
             <NavItemSpan>
-              <Link spy={true} smooth={true} duration={100} to="pixi-runner">
+              <Link
+                spy={true}
+                smooth={true}
+                duration={100}
+                to="pixi-runner"
+                onClick={scrollToTop}
+              >
                 pixi runner
               </Link>
             </NavItemSpan>
             <NavItemSpan>
-              <Link spy={true} smooth={true} duration={100} to="pixi-maker">
+              <Link
+                spy={true}
+                smooth={true}
+                duration={100}
+                to="pixi-maker"
+                onClick={scrollToTop}
+              >
                 pixi maker
               </Link>
             </NavItemSpan>
             <NavItemSpan>
-              <Link spy={true} smooth={true} duration={100} to="news">
-                news
-              </Link>
-            </NavItemSpan>
-            <NavItemSpan>
-              <Link spy={true} smooth={true} duration={100} to="memes">
+              <Link
+                spy={true}
+                smooth={true}
+                duration={100}
+                to="memes"
+                onClick={scrollToTop}
+              >
                 memes
               </Link>
             </NavItemSpan>
             <NavItemSpan>
-              <Link spy={true} smooth={true} duration={100} to="social">
+              <Link
+                spy={true}
+                smooth={true}
+                duration={100}
+                to="news"
+                onClick={scrollToTop}
+              >
+                news
+              </Link>
+            </NavItemSpan>
+            <NavItemSpan>
+              <Link
+                spy={true}
+                smooth={true}
+                duration={100}
+                to="social"
+                onClick={scrollToTop}
+              >
                 social
               </Link>
             </NavItemSpan>
           </NavItemContainer>
         )}
         {isMobile && (
-          <MobileNavOpen
-            $isMobileNavOpen={isMobileNavOpen}
-            onClick={() =>
-              isMobileNavOpen ? closeMobileNav() : openMobileNav()
-            }
-          >
+          <MobileNavToggle onClick={toggleMobileNav}>
             {isMobileNavOpen ? "close" : "menu"}
-          </MobileNavOpen>
+          </MobileNavToggle>
         )}
       </Navigation>
       {isMobileNavOpen && (

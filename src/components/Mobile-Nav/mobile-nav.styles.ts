@@ -1,20 +1,26 @@
 import styled from "styled-components";
 
-export const MobileNavContainer = styled.div`
+export const MobileNavContainer = styled.div<{
+  $isOpen: boolean;
+}>`
   position: fixed;
-  z-index: 101;
-  background: #000;
+  z-index: 1000;
+  background: #1a291e;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #fff;
   width: 100%;
   height: 100dvh;
+  top: 0;
+  left: 0;
+  visibility: ${({ $isOpen }) => ($isOpen ? "visible" : "hidden")};
+  opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
+  transition: opacity 0.3s ease-in-out;
 `;
 
 export const MobileNavMenuItem = styled.button`
-  font-family: "Helvetica neue";
+  font-family: "Handjet-Light";
   font-size: 55px;
   border: none;
   background: none;
@@ -29,26 +35,16 @@ export const MobileNavMenuItem = styled.button`
   }
 `;
 
-export const MobileNavOpen = styled.button<{
-  $isMobileNavOpen: boolean;
-}>`
+export const MobileNavClose = styled.button`
   background: none;
   border: none;
   font-family: "Handjet-Light";
   font-size: 24px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
   text-transform: uppercase;
-  color: #000;
-  font-weight: 700;
-  cursor: pointer;
-  z-index: -1;
-`;
-
-export const MobileNavClose = styled.button`
-  background: none;
-  border: none;
-  font-family: "Helvetica neue";
-  font-size: 18px;
-  color: #000;
-  font-weight: 700;
-  cursor: pointer;
+  position: absolute;
+  top: 60px;
+  right: 40px;
 `;
