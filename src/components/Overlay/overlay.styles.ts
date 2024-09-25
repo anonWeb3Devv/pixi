@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const FADE_OUT_DURATION = 2000; // 2 seconds
+const FADE_OUT_DURATION = 500;
 
 export const OverlayWrapper = styled.div<{ $fadeOut: boolean }>`
   background: #1a291e;
@@ -28,8 +28,11 @@ export const OverlayWrapper = styled.div<{ $fadeOut: boolean }>`
 
 export const OverlayButton = styled.button`
   font-family: "Handjet-Regular";
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 240px;
-  height: 80px;
+  height: 40px;
   font-size: 48px;
   padding: 30px 40px;
   text-transform: uppercase;
@@ -37,7 +40,7 @@ export const OverlayButton = styled.button`
   transition: 0.2s ease-in;
   z-index: 20000;
   border-radius: 10px;
-  border: #fff;
+  border: #fff dotted;
   color: #fff;
 
   &:hover {

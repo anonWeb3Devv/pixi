@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { OverlayWrapper, OverlayButton } from "./overlay.styles";
 
-const FADE_OUT_DURATION = 1500;
+const FADE_OUT_DURATION = 1000;
 
 type OverlayProps = {
   isOverlayOpen: boolean;
@@ -17,14 +17,16 @@ export function Overlay({ isOverlayOpen, setIsOverlayOpen }: OverlayProps) {
     setTimeout(() => {
       setFadeOut(true);
       setTimeout(() => setIsOverlayOpen(false), FADE_OUT_DURATION);
-    }, 7000);
+    }, 700);
   }
 
   return (
     <>
       {isOverlayOpen && (
         <OverlayWrapper $fadeOut={fadeOut}>
-          <OverlayButton onClick={handleClick}>enter</OverlayButton>
+          <OverlayButton onClick={handleClick}>
+            {!isButtonClicked ? "enter" : "loading..."}
+          </OverlayButton>
         </OverlayWrapper>
       )}
     </>
