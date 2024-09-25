@@ -21,3 +21,9 @@ export const CategoryHeading = styled.h4`
   margin-top: 20px;
   margin-bottom: 10px;
 `;
+
+export const Button = styled.button`
+  background: red;
+  color: white;
+  padding: 10px;
+`;

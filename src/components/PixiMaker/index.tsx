@@ -4,6 +4,7 @@ import {
   PreviewWrapper,
   CustomizationSection,
   CategoryHeading,
+  Button,
 } from "./styled";
 import ScrollablePicker from "../ScrollablePicker";
 
@@ -69,6 +70,19 @@ const PixiMaker = () => {
     drawImage(customization.hand);
     drawImage(customization.pets);
   }, [customization]);
+
+  const exportImage = () => {
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const image = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = "custom_character.png";
+      link.click();
+    } else {
+      console.error("Canvas is not available for export");
+    }
+  };
 
   const handleSelect = (category, val) => {
     if (val === "../../assets/pixiAssets/eyes/0.png") {
@@ -146,6 +160,17 @@ const PixiMaker = () => {
           options={backgroundOptions}
           onSelect={handleSelect}
         />
+        <div
+          style={{
+            display: "flex",
+            background: "green",
+            gap: "10px",
+            padding: "10px",
+            marginTop: "20px",
+          }}
+        >
+          <Button onClick={exportImage}>Export Image</Button>
+        </div>
       </CustomizationSection>
     </GeneratorWrapper>
   );
