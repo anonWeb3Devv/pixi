@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "Handjet-Light";
+  src: url("../src/assets/fonts/Handjet-Light.ttf") format("truetype");
+  font-display: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: "Handjet-Medium";
+  src: url("../src/assets/fonts/Handjet-Medium.ttf") format("truetype");
+  font-display: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: "Handjet-Regular";
+  src: url("../src/assets/fonts/Handjet-Regular.ttf") format("truetype");
+  font-display: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+}
+
+@font-face {
+  font-family: "Handjet-SemiBold";
+  src: url("../src/assets/fonts/Handjet-SemiBold.ttf") format("truetype");
+  font-display: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+}
