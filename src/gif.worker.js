@@ -1,6 +1,7 @@
-import GIF from "gif.js";
+import GIF from 'gif.js';
 
 self.onmessage = function (e) {
+    console.log("Worker received init message:", e.data);
     const { width, height, delay } = e.data;
     const gif = new GIF({
         workers: 2,
@@ -11,14 +12,18 @@ self.onmessage = function (e) {
     });
 
     gif.on("finished", function (blob) {
-        self.postMessage(blob);
+        console.log("Worker finished GIF creation");
+        self.postMessage({ type: 'finished', blob });
     });
 
     self.onmessage = function (event) {
-        if (event.data === "addFrame") {
-            gif.addFrame(event.data.imageData);
+        console.log("Worker received message:", event.data);
+        if (event.data.type === "addFrame") {
+            console.log("Adding frame in worker.");
+            gif.addFrame(event.data.imageData, { delay: event.data.delay });
         }
-        if (event.data === "finish") {
+        if (event.data.type === "finish") {
+            console.log("Finishing GIF in worker...");
             gif.render();
         }
     };

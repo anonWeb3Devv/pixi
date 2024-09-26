@@ -89,10 +89,3 @@ export const exportImage = (canvasRef) => {
   }
 };
 
-export const handlePetSelection = (petValue, setCurrentPetGif) => {
-  setCurrentPetGif(petValue); // Directly set the GIF URL from the value
-};
-
-export const handleSelect = (category, val, customization, setCustomization) => {
-  setCustomization({ ...customization, [category]: val });
-};

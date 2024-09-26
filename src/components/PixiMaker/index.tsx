@@ -12,7 +12,12 @@ import {
 } from "./styled";
 import ScrollablePicker from "../ScrollablePicker";
 import ScrollablePetPicker from "../ScrollablePetPicker";
-import * as omggif from "omggif";
+import axios from "axios";
+import Worker from "../workers/gif.worker.js?worker"; // Correct worker import
+
+// import GIF from "gif.js.optimized";
+import { GifReader } from "omggif";
+
 import {
   eyeOptions,
   headOptions,
@@ -29,10 +34,10 @@ import {
   resetCustomization,
   randomizeCustomization,
   handleBackgroundUpload,
-  exportImage,
-  handlePetSelection,
-  handleSelect,
+  // exportImage,
 } from "./handlers";
+
+// const worker = new Worker(new URL("/gif.worker.js", import.meta.url));
 
 const PixiMaker = () => {
   const defaultCustomization = {
@@ -50,20 +55,117 @@ const PixiMaker = () => {
   const [customization, setCustomization] = useState(defaultCustomization);
   const [customBackground, setCustomBackground] = useState(null);
   const canvasRef = useRef(null);
-  const [currentPetGif, setCurrentPetGif] = useState(null);
+  const [currentPetGif, setCurrentPetGif] = useState(null); // Store the GIF URL
+  const worker = new Worker();
 
-  const preloadImages = (frames) => {
-    return frames.map((src) => {
-      const img = new Image();
-      img.src = src;
-      return img;
+  const getStaticImageFromCanvas = (canvas) => {
+    const ctx = canvas.getContext("2d");
+    return ctx.getImageData(0, 0, canvas.width, canvas.height); // Capture the canvas content
+  };
+  useEffect(() => {
+    worker.onmessage = (event) => {
+      const blob = event.data;
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "combined-pet-animation.gif";
+      link.click();
+      URL.revokeObjectURL(url);
+      console.log("GIF download triggered.");
+    };
+  }, [worker]);
+
+  const loadImageToCanvas = (src, ctx) => {
+    return new Promise((resolve, reject) => {
+      if (!src) {
+        return reject(new Error("No background image provided."));
+      }
+
+      const image = new Image();
+      image.src = src;
+      image.onload = () => {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clear the canvas
+        ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height); // Draw image
+        resolve();
+      };
+      image.onerror = () => reject(new Error(`Failed to load image: ${src}`));
     });
   };
 
-  const preloadedPets = Object.keys(pets).reduce((acc, pet) => {
-    acc[pet] = preloadImages(pets[pet]); // Preload each pet's frames
-    return acc;
-  }, {});
+  const combineStaticWithGif = async (gifUrl) => {
+    console.log("Starting GIF combination...");
+    try {
+      if (!gifUrl) {
+        throw new Error("No pet GIF URL provided.");
+      }
+
+      const canvas = canvasRef.current;
+      const offscreenCanvas = document.createElement("canvas");
+      offscreenCanvas.width = canvas.width;
+      offscreenCanvas.height = canvas.height;
+      const offscreenCtx = offscreenCanvas.getContext("2d");
+
+      const staticImageData = getStaticImageFromCanvas(canvas);
+
+      console.log("Fetching GIF data...");
+      const gifResponse = await axios.get(gifUrl, {
+        responseType: "arraybuffer",
+      });
+      console.log("GIF data fetched.");
+
+      const gifBuffer = new Uint8Array(gifResponse.data);
+      const gifReader = new GifReader(gifBuffer);
+
+      console.log("Creating GIF in the worker...");
+      // Send width, height, and delay to the worker
+      worker.postMessage({
+        width: offscreenCanvas.width,
+        height: offscreenCanvas.height,
+        delay: gifReader.frameInfo(0).delay,
+      });
+
+      // Loop through GIF frames and send them to the worker
+      for (
+        let frameIndex = 0;
+        frameIndex < gifReader.numFrames();
+        frameIndex++
+      ) {
+        console.log(
+          `Adding frame ${frameIndex + 1} of ${gifReader.numFrames()}`
+        );
+
+        offscreenCtx.putImageData(staticImageData, 0, 0); // Reset offscreen canvas with static image
+
+        const frameData = new Uint8ClampedArray(
+          gifReader.width * gifReader.height * 4
+        );
+        gifReader.decodeAndBlitFrameRGBA(frameIndex, frameData);
+        const gifImageData = new ImageData(
+          frameData,
+          gifReader.width,
+          gifReader.height
+        );
+        offscreenCtx.putImageData(gifImageData, 0, 0); // Draw GIF frame
+
+        // Send frame to the worker
+        worker.postMessage({
+          imageData: offscreenCtx.getImageData(
+            0,
+            0,
+            offscreenCanvas.width,
+            offscreenCanvas.height
+          ),
+          type: "addFrame",
+        });
+      }
+
+      // Tell worker to finish GIF generation
+      worker.postMessage({ type: "finish" });
+      console.log("Sent 'finish' message to worker.");
+    } catch (error) {
+      console.error("Error combining static image and GIF:", error);
+    }
+  };
 
   // Draw static layers (background, skin, clothes, etc.)
   const drawStaticLayers = async (ctx) => {
@@ -103,6 +205,15 @@ const PixiMaker = () => {
     drawStaticLayers(ctx);
   }, [customization, customBackground]);
 
+  // Handle pet selection to set the GIF overlay
+  const handlePetSelection = (petValue) => {
+    setCurrentPetGif(petValue); // Directly set the GIF URL from the value
+  };
+
+  const handleSelect = (category, val) => {
+    setCustomization({ ...customization, [category]: val });
+  };
+
   return (
     <GeneratorWrapper>
       <Title>Pixi Maker</Title>
@@ -125,9 +236,11 @@ const PixiMaker = () => {
       </PreviewWrapper>
       <ButtonContainer>
         <StyledButton
-        // onClick={captureGIF}
+          onClick={() =>
+            combineStaticWithGif("/assets/pixiAssets/petsGifs/1.gif")
+          }
         >
-          Export Image
+          Export GIF
         </StyledButton>
         <StyledButton
           onClick={() =>
@@ -168,69 +281,55 @@ const PixiMaker = () => {
         <ScrollablePicker
           category="background"
           options={backgroundOptions}
-          onSelect={(val) =>
-            handleSelect("background", val, customization, setCustomization)
-          }
+          onSelect={handleSelect}
         />
 
         <CategoryHeading>Skin</CategoryHeading>
         <ScrollablePicker
           options={skinOptions}
           category="skin"
-          onSelect={(val) =>
-            handleSelect("skin", val, customization, setCustomization)
-          }
+          onSelect={handleSelect}
         />
 
         <CategoryHeading>Head</CategoryHeading>
         <ScrollablePicker
           options={headOptions}
           category="head"
-          onSelect={(val) =>
-            handleSelect("head", val, customization, setCustomization)
-          }
+          onSelect={handleSelect}
         />
 
         <CategoryHeading>Eyes</CategoryHeading>
         <ScrollablePicker
           options={eyeOptions}
           category="eyes"
-          onSelect={(val) =>
-            handleSelect("eyes", val, customization, setCustomization)
-          }
+          onSelect={handleSelect}
         />
 
         <CategoryHeading>Clothes</CategoryHeading>
         <ScrollablePicker
           category="clothes"
           options={clothesOptions}
-          onSelect={(val) =>
-            handleSelect("clothes", val, customization, setCustomization)
-          }
+          onSelect={handleSelect}
         />
 
         <CategoryHeading>Pets</CategoryHeading>
         <ScrollablePetPicker
           options={petOptions}
-          onSelect={(val) => handlePetSelection(val, setCurrentPetGif)}
+          onSelect={handlePetSelection}
         />
 
         <CategoryHeading>Mouth</CategoryHeading>
         <ScrollablePicker
           options={mouthOptions}
           category="mouth"
-          onSelect={(val) =>
-            handleSelect("mouth", val, customization, setCustomization)
-          }
+          onSelect={handleSelect}
         />
 
         <CategoryHeading>Hand</CategoryHeading>
         <ScrollablePicker
           category="hand"
           options={handOptions}
-          onSelect={(val) =>
-            handleSelect("hand", val, customization, setCustomization)
-          }
+          onSelect={handleSelect}
         />
       </CustomizationSection>
     </GeneratorWrapper>
