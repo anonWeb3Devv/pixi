@@ -111,3 +111,33 @@ export const skinOptions = [
     };
   })
 ];
+
+
+export const petOptions = [
+  {
+    name: 'None', 
+    value: '/assets/pixiAssets/petsGifs/0.png',  
+    image: '/assets/pixiAssets/petsGifs/0.png'   
+  },
+  ...Array.from({ length: 9 }, (_, index) => {
+    const number = index + 1;
+    return {
+      name: `Skin ${number}`,
+      value: `/assets/pixiAssets/petsGifs/${number}.gif`,
+      image: `/assets/pixiAssets/petsGifs/${number}.gif`,
+    };
+  })
+];
+
+
+export const pets = {
+  dogwifhat: [...Array(49)].map((_, i) => `/assets/pixiAssets/pets/dogwifhat/${i + 1}.png`),
+  dragon: [...Array(57)].map((_, i) => `/assets/pixiAssets/pets/dragon/naga transparant${i + 1}.png`),
+  frog: [...Array(97)].map((_, i) => `/assets/pixiAssets/pets/frog/froggy transparent${i + 1}.png`),
+  gorilla: [...Array(15)].map((_, i) => `/assets/pixiAssets/pets/gorilla/arrow up${i + 1}.png`),
+  hamster: [...Array(47)].map((_, i) => `/assets/pixiAssets/pets/hamster/hamster transparant${i + 1}.png`),
+  nubcat: [...Array(35)].map((_, i) => `/assets/pixiAssets/pets/nubcat/${i + 1}.png`),
+  penguin: [...Array(36)].map((_, i) => `/assets/pixiAssets/pets/penguin/${i + 1}.png`),
+  standingcat: [...Array(100)].map((_, i) => `/assets/pixiAssets/pets/standing cat/standing cat transparant${i + 1}.png`),
+};
+

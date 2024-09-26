@@ -1,30 +1,40 @@
 import styled from 'styled-components';
+import { theme } from '../../styles/theme';
 
+export const Title = styled.h1`
+  font-size: 60px;
+  margin: 30px 0;
+`;
 
 export const GeneratorWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   width: 100%;
 `;
 
 export const PreviewWrapper = styled.div`
   margin-bottom: 20px;
+  position: relative;
 `;
 
 export const CustomizationSection = styled.div`
   width: 100%;
   max-width: 600px;
-  padding: 20px;
+  padding: 20px; 
+
+  
 `;
 
 export const CategoryHeading = styled.h4`
   margin-top: 20px;
   margin-bottom: 10px;
+  align-self: center;
 `;
 
 export const StyledButton = styled.button`
-  background-color: white;
-  border: 2px solid #ccc;
+  background-color: ${theme.colors.secondary};
+  border: none;
   border-radius: 5px;
   padding: 10px 20px;
   font-size: 16px;
@@ -46,8 +56,7 @@ export const StyledInput = styled.input`
 `;
 
 export const LabelButton = styled.label`
-  background-color: white;
-  border: 2px solid #ccc;
+  background-color: ${theme.colors.secondary};
   border-radius: 5px;
   padding: 10px 20px;
   font-size: 16px;
@@ -62,4 +71,10 @@ export const LabelButton = styled.label`
   &:hover {
     background-color: #f0f0f0;
   }
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 20px;
 `;
