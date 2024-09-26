@@ -11,6 +11,8 @@ const JUMP_SPEED = 10;
 const JUMP_KEYS = ["Space", "ArrowUp"];
 const OBSTACLE_SPAWN_RATE = 2000;
 const OBSTACLE_WIDTH = 16;
+const GROUND_LEVEL = 3;
+const FALL_SPEED = 8;
 
 type Obstacle = {
   id: number;
@@ -65,6 +67,7 @@ function getImage({
 
 export function Dino() {
   const intervalRef = useRef<number | null>(null);
+  const obstacleIntervalRef = useRef<number | null>(null);
 
   const [scenarioPosition, setScenarioPosition] = useState(0);
   const [isJumping, setIsJumping] = useState(false);
@@ -79,7 +82,7 @@ export function Dino() {
   const generateObstacle = useCallback(() => {
     if (obstacles.length > 5) return;
 
-    const id = Math.random();
+    const id = Date.now(); // Use Date.now() for unique IDs
     const position = window.innerWidth + Math.floor(Math.random() * 1000);
 
     const obstacle = getRandomObstacle();
@@ -88,14 +91,19 @@ export function Dino() {
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (!isRunning && !isGameOver) {
+      if (isGameOver) {
+        return;
+      }
+
+      if (!isRunning && JUMP_KEYS.includes(e.code)) {
         setIsRunning(true);
         return;
       }
 
-      if (!JUMP_KEYS.includes(e.code) || isJumping || isKeyDown) return;
-      setIsJumping(true);
-      setIsKeyDown(true);
+      if (JUMP_KEYS.includes(e.code) && !isJumping && !isKeyDown) {
+        setIsJumping(true);
+        setIsKeyDown(true);
+      }
     },
     [isGameOver, isJumping, isKeyDown, isRunning]
   );
@@ -113,70 +121,62 @@ export function Dino() {
           ...obstacle,
           position: obstacle.position - GAME_SPEED,
         }))
-        .filter((obstacle) => obstacle.position > -20)
+        .filter((obstacle) => obstacle.position > -OBSTACLE_WIDTH)
     );
 
-    if (!isFalling && isJumping) {
+    if (isJumping && !isFalling) {
       if (playerPositionY < JUMP_LIMIT) {
         setPlayerPositionY((prev) => prev + JUMP_SPEED);
       } else {
         setIsFalling(true);
       }
-    } else {
-      if (playerPositionY > 3) {
-        setIsFalling(true);
-        setIsJumping(false);
-        setPlayerPositionY((prev) => (prev >= 3 ? prev - 8 : 3));
+    } else if (isFalling) {
+      if (playerPositionY > GROUND_LEVEL) {
+        setPlayerPositionY((prev) => Math.max(GROUND_LEVEL, prev - FALL_SPEED));
       } else {
         setIsFalling(false);
+        setIsJumping(false);
       }
     }
 
     obstacles.forEach((obstacle) => {
       if (
-        obstacle.position < PLAYER_RIGHT_BORDER - 10 &&
+        obstacle.position < PLAYER_RIGHT_BORDER &&
         obstacle.position > PLAYER_X - OBSTACLE_WIDTH &&
-        playerPositionY < obstacle.height + 10
+        playerPositionY < obstacle.height
       ) {
         clearInterval(intervalRef.current!);
+        clearInterval(obstacleIntervalRef.current!);
         setIsGameOver(true);
         setIsRunning(false);
       }
     });
-
-    if (isGameOver) {
-      clearInterval(intervalRef.current!);
-      return;
-    }
-  }, [isFalling, isGameOver, isJumping, obstacles, playerPositionY]);
+  }, [isFalling, isJumping, obstacles, playerPositionY]);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
 
-    if (!isRunning) return;
-
-    const interval = setInterval(gameLoop, 20);
-    intervalRef.current = interval;
+    if (isRunning) {
+      intervalRef.current = window.setInterval(gameLoop, 20);
+    }
 
     return () => {
-      clearInterval(intervalRef.current!);
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
+      clearInterval(intervalRef.current!);
     };
   }, [gameLoop, handleKeyDown, handleKeyUp, isRunning]);
 
   useEffect(() => {
-    if (!isRunning) return;
-
-    const interval = setInterval(generateObstacle, OBSTACLE_SPAWN_RATE);
-
-    if (isGameOver) {
-      clearInterval(interval);
-      return;
+    if (isRunning) {
+      obstacleIntervalRef.current = window.setInterval(
+        generateObstacle,
+        OBSTACLE_SPAWN_RATE
+      );
     }
 
-    return () => clearInterval(interval);
+    return () => clearInterval(obstacleIntervalRef.current!);
   }, [generateObstacle, isGameOver, isRunning]);
 
   return (
