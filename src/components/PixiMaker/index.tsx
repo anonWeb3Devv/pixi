@@ -12,8 +12,7 @@ import {
 } from "./styled";
 import ScrollablePicker from "../ScrollablePicker";
 import ScrollablePetPicker from "../ScrollablePetPicker";
-import GIF from "gif.js";
-
+import * as omggif from "omggif";
 import {
   eyeOptions,
   headOptions,
@@ -23,7 +22,17 @@ import {
   backgroundOptions,
   mouthOptions,
   petOptions,
+  pets,
 } from "../ScrollablePicker/options";
+
+import {
+  resetCustomization,
+  randomizeCustomization,
+  handleBackgroundUpload,
+  exportImage,
+  handlePetSelection,
+  handleSelect,
+} from "./handlers";
 
 const PixiMaker = () => {
   const defaultCustomization = {
@@ -41,72 +50,20 @@ const PixiMaker = () => {
   const [customization, setCustomization] = useState(defaultCustomization);
   const [customBackground, setCustomBackground] = useState(null);
   const canvasRef = useRef(null);
-  const [currentPetGif, setCurrentPetGif] = useState(null); // Store the GIF URL
-  const workerRef = useRef(null);
-  useEffect(() => {
-    // Initialize the worker
-    workerRef.current = new Worker(
-      new URL("/worker/worker.js", import.meta.url)
-    );
+  const [currentPetGif, setCurrentPetGif] = useState(null);
 
-    workerRef.current.onmessage = (e) => {
-      if (e.data.type === "finished") {
-        const url = URL.createObjectURL(e.data.blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "animated.gif";
-        link.click();
-        URL.revokeObjectURL(url);
-      }
-    };
-
-    return () => {
-      workerRef.current.terminate(); // Clean up the worker on unmount
-    };
-  }, []);
-
-  const captureGIF = () => {
-    const canvas = canvasRef.current;
-
-    if (!canvas) {
-      console.error("Canvas not available");
-      return;
-    }
-
-    // Initialize the GIF
-    const gif = new GIF({
-      workers: 2, // Number of web workers to use
-      quality: 10, // Lower is better quality
-      workerScript: "/path/to/gif.worker.js", // Path to the worker script
-    });
-
-    // Capture frames for 3 seconds at 12 frames per second
-    const duration = 3000; // 3 seconds
-    const fps = 12; // Frames per second
-    const frameInterval = 1000 / fps; // Time between frames in ms
-
-    let currentTime = 0;
-    const interval = setInterval(() => {
-      if (currentTime >= duration) {
-        clearInterval(interval);
-
-        // Once all frames are added, render the GIF
-        gif.render();
-      } else {
-        // Add a frame to the GIF
-        gif.addFrame(canvas, { copy: true, delay: frameInterval });
-        currentTime += frameInterval;
-      }
-    }, frameInterval);
-
-    // Once the GIF is rendered, save the file
-    gif.on("finished", (blob) => {
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "custom_animation.gif";
-      link.click();
+  const preloadImages = (frames) => {
+    return frames.map((src) => {
+      const img = new Image();
+      img.src = src;
+      return img;
     });
   };
+
+  const preloadedPets = Object.keys(pets).reduce((acc, pet) => {
+    acc[pet] = preloadImages(pets[pet]); // Preload each pet's frames
+    return acc;
+  }, {});
 
   // Draw static layers (background, skin, clothes, etc.)
   const drawStaticLayers = async (ctx) => {
@@ -146,89 +103,6 @@ const PixiMaker = () => {
     drawStaticLayers(ctx);
   }, [customization, customBackground]);
 
-  const exportImage = () => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const image = canvas.toDataURL("image/png");
-      const link = document.createElement("a");
-      link.href = image;
-      link.download = "custom_pixi.png";
-      link.click();
-    } else {
-      console.error("Canvas is not available for export");
-    }
-  };
-
-  const reset = () => {
-    setCustomization(defaultCustomization);
-    setCustomBackground(null);
-    setCurrentPetGif(null); // Reset the GIF overlay
-  };
-
-  const randomize = () => {
-    const randomOption = (options) =>
-      options[Math.floor(Math.random() * options.length)].value;
-
-    setCustomization({
-      eyes: randomOption(eyeOptions),
-      head: randomOption(headOptions),
-      mouth: randomOption(mouthOptions),
-      pets: null,
-      clothes: randomOption(clothesOptions),
-      skin: randomOption(skinOptions),
-      hand: randomOption(handOptions),
-      background: randomOption(backgroundOptions),
-    });
-    setCustomBackground(null);
-    setCurrentPetGif(null); // Clear the pet GIF
-  };
-
-  const handleBackgroundUpload = (e) => {
-    const file = e.target.files[0];
-    if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const img = new Image();
-        img.src = event.target.result;
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-
-          const size = Math.min(img.width, img.height);
-          canvas.width = 600;
-          canvas.height = 600;
-
-          ctx.drawImage(
-            img,
-            (img.width - size) / 2,
-            (img.height - size) / 2,
-            size,
-            size,
-            0,
-            0,
-            canvas.width,
-            canvas.height
-          );
-
-          setCustomBackground(canvas.toDataURL("image/png"));
-        };
-      };
-      reader.readAsDataURL(file);
-    } else {
-      alert("Please upload a PNG or JPG image.");
-    }
-  };
-
-  // Handle pet selection to set the GIF overlay
-  const handlePetSelection = (petValue) => {
-    setCurrentPetGif(petValue); // Directly set the GIF URL from the value
-  };
-
-  const handleSelect = (category, val) => {
-    setCustomization({ ...customization, [category]: val });
-  };
-
-  console.log(currentPetGif);
   return (
     <GeneratorWrapper>
       <Title>Pixi Maker</Title>
@@ -250,15 +124,40 @@ const PixiMaker = () => {
         )}
       </PreviewWrapper>
       <ButtonContainer>
-        <StyledButton onClick={captureGIF}>Export Image</StyledButton>
-        <StyledButton onClick={reset}>Reset</StyledButton>
-        <StyledButton onClick={randomize}>Random</StyledButton>
+        <StyledButton
+        // onClick={captureGIF}
+        >
+          Export Image
+        </StyledButton>
+        <StyledButton
+          onClick={() =>
+            resetCustomization(
+              setCustomization,
+              defaultCustomization,
+              setCustomBackground,
+              setCurrentPetGif
+            )
+          }
+        >
+          Reset
+        </StyledButton>
+        <StyledButton
+          onClick={() =>
+            randomizeCustomization(
+              setCustomization,
+              setCustomBackground,
+              setCurrentPetGif
+            )
+          }
+        >
+          Random
+        </StyledButton>
 
         <StyledInput
           type="file"
           id="background-upload"
           accept="image/png, image/jpeg"
-          onChange={handleBackgroundUpload}
+          onChange={(e) => handleBackgroundUpload(e, setCustomBackground)}
         />
         <LabelButton htmlFor="background-upload">Upload Background</LabelButton>
       </ButtonContainer>
@@ -269,55 +168,69 @@ const PixiMaker = () => {
         <ScrollablePicker
           category="background"
           options={backgroundOptions}
-          onSelect={handleSelect}
+          onSelect={(val) =>
+            handleSelect("background", val, customization, setCustomization)
+          }
         />
 
         <CategoryHeading>Skin</CategoryHeading>
         <ScrollablePicker
           options={skinOptions}
           category="skin"
-          onSelect={handleSelect}
+          onSelect={(val) =>
+            handleSelect("skin", val, customization, setCustomization)
+          }
         />
 
         <CategoryHeading>Head</CategoryHeading>
         <ScrollablePicker
           options={headOptions}
           category="head"
-          onSelect={handleSelect}
+          onSelect={(val) =>
+            handleSelect("head", val, customization, setCustomization)
+          }
         />
 
         <CategoryHeading>Eyes</CategoryHeading>
         <ScrollablePicker
           options={eyeOptions}
           category="eyes"
-          onSelect={handleSelect}
+          onSelect={(val) =>
+            handleSelect("eyes", val, customization, setCustomization)
+          }
         />
 
         <CategoryHeading>Clothes</CategoryHeading>
         <ScrollablePicker
           category="clothes"
           options={clothesOptions}
-          onSelect={handleSelect}
+          onSelect={(val) =>
+            handleSelect("clothes", val, customization, setCustomization)
+          }
         />
 
         <CategoryHeading>Pets</CategoryHeading>
         <ScrollablePetPicker
           options={petOptions}
-          onSelect={handlePetSelection}
+          onSelect={(val) => handlePetSelection(val, setCurrentPetGif)}
         />
 
         <CategoryHeading>Mouth</CategoryHeading>
         <ScrollablePicker
           options={mouthOptions}
           category="mouth"
-          onSelect={handleSelect}
+          onSelect={(val) =>
+            handleSelect("mouth", val, customization, setCustomization)
+          }
         />
 
         <CategoryHeading>Hand</CategoryHeading>
         <ScrollablePicker
           category="hand"
           options={handOptions}
-          onSelect={handleSelect}
+          onSelect={(val) =>
+            handleSelect("hand", val, customization, setCustomization)
+          }
         />
       </CustomizationSection>
     </GeneratorWrapper>

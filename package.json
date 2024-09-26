@@ -13,6 +13,7 @@
     "canvas-capture": "^2.1.1",
     "gif.js": "^0.2.0",
     "gif.js.optimized": "^1.0.1",
+    "gifshot": "^0.4.5",
     "omggif": "^1.0.10",
     "pixi.js": "^8.4.1",
     "react": "^18.3.1",
