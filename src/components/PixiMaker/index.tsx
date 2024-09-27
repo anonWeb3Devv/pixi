@@ -12,11 +12,8 @@ import {
 } from "./styled";
 import ScrollablePicker from "../ScrollablePicker";
 import ScrollablePetPicker from "../ScrollablePetPicker";
-import axios from "axios";
-import Worker from "../workers/gif.worker.js?worker"; // Correct worker import
-
-// import GIF from "gif.js.optimized";
-import { GifReader } from "omggif";
+import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { fetchFile, toBlobURL } from "@ffmpeg/util";
 
 import {
   eyeOptions,
@@ -27,17 +24,13 @@ import {
   backgroundOptions,
   mouthOptions,
   petOptions,
-  pets,
 } from "../ScrollablePicker/options";
 
 import {
   resetCustomization,
   randomizeCustomization,
   handleBackgroundUpload,
-  // exportImage,
 } from "./handlers";
-
-// const worker = new Worker(new URL("/gif.worker.js", import.meta.url));
 
 const PixiMaker = () => {
   const defaultCustomization = {
@@ -56,118 +49,42 @@ const PixiMaker = () => {
   const [customBackground, setCustomBackground] = useState(null);
   const canvasRef = useRef(null);
   const [currentPetGif, setCurrentPetGif] = useState(null); // Store the GIF URL
-  const worker = new Worker();
 
-  const getStaticImageFromCanvas = (canvas) => {
-    const ctx = canvas.getContext("2d");
-    return ctx.getImageData(0, 0, canvas.width, canvas.height); // Capture the canvas content
-  };
-  useEffect(() => {
-    worker.onmessage = (event) => {
-      const blob = event.data;
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "combined-pet-animation.gif";
-      link.click();
-      URL.revokeObjectURL(url);
-      console.log("GIF download triggered.");
-    };
-  }, [worker]);
+  const ffmpegRef = useRef(new FFmpeg());
+  const [ffmpegLoaded, setFfmpegLoaded] = useState(false);
 
-  const loadImageToCanvas = (src, ctx) => {
-    return new Promise((resolve, reject) => {
-      if (!src) {
-        return reject(new Error("No background image provided."));
-      }
+  const loadFFmpeg = async () => {
+    const baseURL = "https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm";
+    const ffmpeg = ffmpegRef.current;
 
-      const image = new Image();
-      image.src = src;
-      image.onload = () => {
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); // Clear the canvas
-        ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height); // Draw image
-        resolve();
-      };
-      image.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+    ffmpeg.on("log", ({ message }) => {
+      if (messageRef.current) messageRef.current.innerHTML = message; // Display FFmpeg logs
     });
+
+    // Load FFmpeg with core, wasm, and worker URLs
+    await ffmpeg.load({
+      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
+      wasmURL: await toBlobURL(
+        `${baseURL}/ffmpeg-core.wasm`,
+        "application/wasm"
+      ),
+      workerURL: await toBlobURL(
+        `${baseURL}/ffmpeg-core.worker.js`,
+        "text/javascript"
+      ),
+    });
+
+    setFfmpegLoaded(true); // Set state to indicate FFmpeg has been loaded
   };
 
-  const combineStaticWithGif = async (gifUrl) => {
-    console.log("Starting GIF combination...");
-    try {
-      if (!gifUrl) {
-        throw new Error("No pet GIF URL provided.");
-      }
+  useEffect(() => {
+    loadFFmpeg();
+  }, []);
 
-      const canvas = canvasRef.current;
-      const offscreenCanvas = document.createElement("canvas");
-      offscreenCanvas.width = canvas.width;
-      offscreenCanvas.height = canvas.height;
-      const offscreenCtx = offscreenCanvas.getContext("2d");
+  useEffect(() => {
+    console.log(ffmpegRef);
+  });
 
-      const staticImageData = getStaticImageFromCanvas(canvas);
-
-      console.log("Fetching GIF data...");
-      const gifResponse = await axios.get(gifUrl, {
-        responseType: "arraybuffer",
-      });
-      console.log("GIF data fetched.");
-
-      const gifBuffer = new Uint8Array(gifResponse.data);
-      const gifReader = new GifReader(gifBuffer);
-
-      console.log("Creating GIF in the worker...");
-      // Send width, height, and delay to the worker
-      worker.postMessage({
-        width: offscreenCanvas.width,
-        height: offscreenCanvas.height,
-        delay: gifReader.frameInfo(0).delay,
-      });
-
-      // Loop through GIF frames and send them to the worker
-      for (
-        let frameIndex = 0;
-        frameIndex < gifReader.numFrames();
-        frameIndex++
-      ) {
-        console.log(
-          `Adding frame ${frameIndex + 1} of ${gifReader.numFrames()}`
-        );
-
-        offscreenCtx.putImageData(staticImageData, 0, 0); // Reset offscreen canvas with static image
-
-        const frameData = new Uint8ClampedArray(
-          gifReader.width * gifReader.height * 4
-        );
-        gifReader.decodeAndBlitFrameRGBA(frameIndex, frameData);
-        const gifImageData = new ImageData(
-          frameData,
-          gifReader.width,
-          gifReader.height
-        );
-        offscreenCtx.putImageData(gifImageData, 0, 0); // Draw GIF frame
-
-        // Send frame to the worker
-        worker.postMessage({
-          imageData: offscreenCtx.getImageData(
-            0,
-            0,
-            offscreenCanvas.width,
-            offscreenCanvas.height
-          ),
-          type: "addFrame",
-        });
-      }
-
-      // Tell worker to finish GIF generation
-      worker.postMessage({ type: "finish" });
-      console.log("Sent 'finish' message to worker.");
-    } catch (error) {
-      console.error("Error combining static image and GIF:", error);
-    }
-  };
-
-  // Draw static layers (background, skin, clothes, etc.)
   const drawStaticLayers = async (ctx) => {
     await Promise.all([
       loadImage(customBackground || customization.background, ctx),
@@ -180,7 +97,6 @@ const PixiMaker = () => {
     ]);
   };
 
-  // Function to load an image
   const loadImage = (src, ctx) => {
     return new Promise((resolve, reject) => {
       if (!src || src.includes("0.png")) return resolve();
@@ -214,6 +130,56 @@ const PixiMaker = () => {
     setCustomization({ ...customization, [category]: val });
   };
 
+  const exportGif = async () => {
+    if (!currentPetGif || !canvasRef.current) {
+      console.log(currentPetGif);
+      console.log(canvasRef.current);
+      console.error("FFmpeg is not loaded or required data is missing");
+      return;
+    }
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+
+    // Get the static image from the canvas
+    const staticBackgroundURL = canvas.toDataURL("image/png");
+
+    const ffmpeg = ffmpegRef.current;
+    console.log(ffmpeg);
+
+    // Write the static background and the pet GIF into FFmpeg's virtual filesystem
+    await ffmpeg.writeFile(
+      "background.png",
+      await fetchFile(staticBackgroundURL)
+    );
+    await ffmpeg.writeFile("pet.gif", await fetchFile(currentPetGif));
+
+    // Run the FFmpeg overlay command to combine background and GIF
+    await ffmpeg.exec([
+      "-i",
+      "background.png",
+      "-i",
+      "pet.gif",
+      "-filter_complex",
+      "[1:v][0:v]scale2ref[gif][bg];[bg][gif]overlay",
+      "output.gif",
+    ]);
+
+    // Read the output GIF
+    const data = await ffmpeg.readFile("output.gif");
+    const gifURL = URL.createObjectURL(
+      new Blob([data.buffer], { type: "image/gif" })
+    );
+
+    // Download the generated GIF
+    const link = document.createElement("a");
+    link.href = gifURL;
+    link.download = "character_with_pet.gif";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <GeneratorWrapper>
       <Title>Pixi Maker</Title>
@@ -235,13 +201,7 @@ const PixiMaker = () => {
         )}
       </PreviewWrapper>
       <ButtonContainer>
-        <StyledButton
-          onClick={() =>
-            combineStaticWithGif("/assets/pixiAssets/petsGifs/1.gif")
-          }
-        >
-          Export GIF
-        </StyledButton>
+        <StyledButton onClick={exportGif}>Export GIF</StyledButton>
         <StyledButton
           onClick={() =>
             resetCustomization(
@@ -265,6 +225,8 @@ const PixiMaker = () => {
         >
           Random
         </StyledButton>
+
+        <StyledButton onClick={loadFFmpeg}>Load</StyledButton>
 
         <StyledInput
           type="file"
