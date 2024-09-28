@@ -178,18 +178,17 @@ const PixiMaker = () => {
     }
   };
 
-  const handleSelect = (category: string, val: string): void => {
+  const handleSelect = (category: string, val: any): void => {
     if (val.name === "None") {
-      setCustomization({ ...customization, [category]: null }); // Clear the selected option
+      setCustomization({ ...customization, [category]: null });
     } else {
-      setCustomization({ ...customization, [category]: val.value }); // Set the selected option value
+      setCustomization({ ...customization, [category]: val.value });
     }
 
-    // Clear specific states if necessary
     if (category === "background") {
-      setCustomBackground(val.name === "None" ? null : val.value); // Clear background specifically
+      setCustomBackground(val.name === "None" ? null : val.value);
     } else if (category === "pets") {
-      setCurrentPetGif(val.name === "None" ? null : val.value); // Clear pet GIF if 'None' is selected
+      setCurrentPetGif(val.name === "None" ? null : val.value);
     }
   };
 

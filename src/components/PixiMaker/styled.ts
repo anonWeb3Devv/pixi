@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { theme } from '../../styles/theme';
 
+
+
 export const Title = styled.h1`
-  font-size: 60px;
+  font-size: 70px;
   margin: 30px 0;
 `;
 
@@ -10,7 +12,8 @@ export const GeneratorWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
 `;
 
 export const PreviewWrapper = styled.div`
@@ -20,16 +23,16 @@ export const PreviewWrapper = styled.div`
 
 export const CustomizationSection = styled.div`
   width: 100%;
-  max-width: 600px;
-  padding: 20px; 
-
-  
+  padding: 20px 0; 
 `;
 
 export const CategoryHeading = styled.h4`
-  margin-top: 20px;
-  margin-bottom: 10px;
-  align-self: center;
+  margin: 20px auto 20px auto;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  text-transform: uppercase;
+
 `;
 
 export const StyledButton = styled.button`
