@@ -9,7 +9,7 @@ interface Option {
 interface ScrollablePickerProps {
   options: Option[];
   category: string;
-  onSelect: (category: string, value: string) => void;
+  onSelect: (category: string, value: Option) => void; // Change the type to Option
 }
 
 const ScrollablePicker: React.FC<ScrollablePickerProps> = ({
@@ -24,7 +24,7 @@ const ScrollablePicker: React.FC<ScrollablePickerProps> = ({
           key={index}
           src={option.image}
           alt={option.name}
-          onClick={() => onSelect(category, option.value)}
+          onClick={() => onSelect(category, option)} // Pass the entire option
         />
       ))}
     </ScrollablePickerWrapper>

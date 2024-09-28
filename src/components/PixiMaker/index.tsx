@@ -40,14 +40,16 @@ const PixiMaker = () => {
     mouth: null,
     pets: null,
     clothes: null,
-    skin: "defaultSkin",
+    skin: skinOptions[1].value,
     hand: null,
-    background: "defaultBackground",
+    background: backgroundOptions[1].value,
     petOptions: null,
   };
 
   const [customization, setCustomization] =
     useState<Customization>(defaultCustomization);
+
+  console.log("customization", customization);
   const [customBackground, setCustomBackground] = useState<string | null>(null);
   const [currentPetGif, setCurrentPetGif] = useState<string | null>(null);
 
@@ -60,7 +62,7 @@ const PixiMaker = () => {
     const ffmpeg = ffmpegRef.current;
 
     ffmpeg.on("log", ({ message }) => {
-      if (messageRef.current) messageRef.current.innerHTML = message; // Display FFmpeg logs
+      if (messageRef.current) messageRef.current.innerHTML = message;
     });
 
     // Load FFmpeg with core, wasm, and worker URLs
@@ -81,21 +83,11 @@ const PixiMaker = () => {
     loadFFmpeg();
   }, []);
 
-  // const drawStaticLayers = async (ctx: any) => {
-  //   await Promise.all([
-  //     loadImage(customBackground || customization.background, ctx),
-  //     loadImage(customization.skin, ctx),
-  //     loadImage(customization.eyes, ctx),
-  //     loadImage(customization.head, ctx),
-  //     loadImage(customization.mouth, ctx),
-  //     loadImage(customization.clothes, ctx),
-  //     loadImage(customization.hand, ctx),
-  //   ]);
-  // };
-
   const loadImages = async (imageSources: string[]) => {
     const ctx = canvasRef.current?.getContext("2d");
     if (!ctx) return;
+
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     await Promise.all(
       imageSources.map((src: string) => {
@@ -126,17 +118,6 @@ const PixiMaker = () => {
     loadImages(imageSources);
   }, [customization, customBackground]);
 
-  // useEffect(() => {
-  //   const canvas = canvasRef.current;
-  //   if (!canvas) return;
-
-  //   const ctx = canvas.getContext("2d");
-  //   if (!ctx) return;
-
-  //   // Draw static layers on every customization change
-  //   drawStaticLayers(ctx);
-  // }, [customization, customBackground]);
-
   const exportGif = async () => {
     if (!currentPetGif || !canvasRef.current) {
       console.error("FFmpeg is not loaded or required data is missing");
@@ -145,14 +126,12 @@ const PixiMaker = () => {
 
     const canvas = canvasRef.current;
 
-    // Get the static image from the canvas as a Blob
     canvas.toBlob(async (blob) => {
       if (!blob) {
         console.error("Failed to create blob from canvas");
         return;
       }
 
-      // Create a URL for the blob
       const staticBackgroundURL = URL.createObjectURL(blob);
 
       const ffmpeg = ffmpegRef.current;
@@ -175,7 +154,6 @@ const PixiMaker = () => {
         "output.gif",
       ]);
 
-      // Read the output GIF
       const data = await ffmpeg.readFile("output.gif");
       const gifBlob = new Blob([data], { type: "image/gif" });
 
@@ -192,13 +170,27 @@ const PixiMaker = () => {
     }, "image/png");
   };
 
-  // Handle pet selection to set the GIF overlay
-  const handlePetSelection = (petValue: string): void => {
-    setCurrentPetGif(petValue); // Directly set the GIF URL from the value
+  const handlePetSelection = (petValue: string, petName: string): void => {
+    if (petName === "None") {
+      setCurrentPetGif(null);
+    } else {
+      setCurrentPetGif(petValue);
+    }
   };
 
   const handleSelect = (category: string, val: string): void => {
-    setCustomization({ ...customization, [category]: val });
+    if (val.name === "None") {
+      setCustomization({ ...customization, [category]: null }); // Clear the selected option
+    } else {
+      setCustomization({ ...customization, [category]: val.value }); // Set the selected option value
+    }
+
+    // Clear specific states if necessary
+    if (category === "background") {
+      setCustomBackground(val.name === "None" ? null : val.value); // Clear background specifically
+    } else if (category === "pets") {
+      setCurrentPetGif(val.name === "None" ? null : val.value); // Clear pet GIF if 'None' is selected
+    }
   };
 
   return (
@@ -214,15 +206,13 @@ const PixiMaker = () => {
               position: "absolute",
               top: 0,
               left: 0,
-              width: "600px",
-              height: "600px",
               pointerEvents: "none",
             }}
           />
         )}
       </PreviewWrapper>
       <ButtonContainer>
-        <StyledButton onClick={exportGif}>Export GIF</StyledButton>
+        <StyledButton onClick={exportGif}>Download PIXI</StyledButton>
         <StyledButton
           onClick={() =>
             resetCustomization(
@@ -247,13 +237,13 @@ const PixiMaker = () => {
           Random
         </StyledButton>
 
-        <StyledButton onClick={loadFFmpeg}>Load</StyledButton>
-
         <StyledInput
           type="file"
           id="background-upload"
           accept="image/png, image/jpeg"
-          onChange={(e) => handleBackgroundUpload(e, setCustomBackground)}
+          onChange={(e) =>
+            handleBackgroundUpload(e, setCustomBackground, setCustomization)
+          }
         />
         <LabelButton htmlFor="background-upload">Upload Background</LabelButton>
       </ButtonContainer>

@@ -32,10 +32,8 @@ export const resetCustomization = (
 ): void => {
   setCustomization(defaultCustomization);
   setCustomBackground(null);
-  setCurrentPetGif(null); 
+  setCurrentPetGif(null);
 };
-
-
 
 export const randomizeCustomization = (
   setCustomization: (customization: Customization) => void,
@@ -43,7 +41,9 @@ export const randomizeCustomization = (
   setCurrentPetGif: (petGif: string | null) => void
 ): void => {
   const randomOption = (options: Option[]): string =>
-    options[Math.floor(Math.random() * options.length)].value;
+    options.length > 1
+      ? options[Math.floor(Math.random() * (options.length - 1) + 1)].value // Exclude the first option
+      : options[0].value; // Fallback in case there's only one option
 
   setCustomization({
     eyes: randomOption(eyeOptions),
@@ -54,45 +54,37 @@ export const randomizeCustomization = (
     skin: randomOption(skinOptions),
     hand: randomOption(handOptions),
     background: randomOption(backgroundOptions),
-    petOptions: null // Ensure this matches the type definition in Customization
+    petOptions: null, // Ensure this matches the type definition in Customization
   });
+
   setCustomBackground(null);
   setCurrentPetGif(null);
 };
 
 export const handleBackgroundUpload = (
   e: React.ChangeEvent<HTMLInputElement>,
-  setCustomBackground: (background: string | null) => void
+  setCustomBackground: (background: string | null) => void,
+  setCustomization: (customization: Customization) => void
 ): void => {
   const file = e.target.files ? e.target.files[0] : null;
   if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
     const reader = new FileReader();
     reader.onload = (event) => {
-      const img = new Image();
-      img.src = typeof event.target?.result === "string" ? event.target.result : "";
+      const uploadedImage =
+        typeof event.target?.result === "string" ? event.target.result : "";
 
-      img.onload = () => {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
+      setCustomBackground(uploadedImage);
 
-        const size = Math.min(img.width, img.height);
-        canvas.width = 600;
-        canvas.height = 600;
-
-        ctx?.drawImage(
-          img,
-          (img.width - size) / 2,
-          (img.height - size) / 2,
-          size,
-          size,
-          0,
-          0,
-          canvas.width,
-          canvas.height
-        );
-
-        setCustomBackground(canvas.toDataURL("image/png"));
+      const newBackgroundOption = {
+        name: "Uploaded Background",
+        value: uploadedImage,
+        image: uploadedImage,
       };
+
+      setCustomization((prevCustomization: Customization) => ({
+        ...prevCustomization,
+        background: newBackgroundOption.value,
+      }));
     };
     reader.readAsDataURL(file);
   } else {
@@ -100,7 +92,9 @@ export const handleBackgroundUpload = (
   }
 };
 
-export const exportImage = (canvasRef: React.RefObject<HTMLCanvasElement>): void => {
+export const exportImage = (
+  canvasRef: React.RefObject<HTMLCanvasElement>
+): void => {
   const canvas = canvasRef.current;
   if (canvas) {
     const image = canvas.toDataURL("image/png");

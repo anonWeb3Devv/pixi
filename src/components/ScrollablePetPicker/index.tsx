@@ -25,7 +25,7 @@ const ScrollablePetPicker: React.FC<ScrollablePetPickerProps> = ({
           key={index}
           src={option.image}
           alt={option.name}
-          onClick={() => onSelect(option.value)}
+          onClick={() => onSelect(option.value, option.name)}
         />
       ))}
     </ScrollablePickerWrapper>

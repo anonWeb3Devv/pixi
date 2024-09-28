@@ -44,6 +44,7 @@ export const StyledButton = styled.button`
   width: 100%;
   text-align: center;
   transition: background-color 0.3s ease;
+  text-transform: uppercase;
 
   &:hover {
     background-color: #f0f0f0;
@@ -67,7 +68,7 @@ export const LabelButton = styled.label`
   text-align: center;
   display: block;
   transition: background-color 0.3s ease;
-
+  text-transform: uppercase;
   &:hover {
     background-color: #f0f0f0;
   }
