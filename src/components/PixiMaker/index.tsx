@@ -30,31 +30,33 @@ import {
   resetCustomization,
   randomizeCustomization,
   handleBackgroundUpload,
+  Customization,
 } from "./handlers";
 
 const PixiMaker = () => {
-  const defaultCustomization = {
+  const defaultCustomization: Customization = {
     eyes: null,
     head: null,
     mouth: null,
     pets: null,
     clothes: null,
-    skin: skinOptions[1].value,
+    skin: "defaultSkin",
     hand: null,
-    background: backgroundOptions[1].value,
+    background: "defaultBackground",
     petOptions: null,
   };
 
-  const [customization, setCustomization] = useState(defaultCustomization);
-  const [customBackground, setCustomBackground] = useState(null);
-  const canvasRef = useRef(null);
-  const [currentPetGif, setCurrentPetGif] = useState(null); // Store the GIF URL
+  const [customization, setCustomization] =
+    useState<Customization>(defaultCustomization);
+  const [customBackground, setCustomBackground] = useState<string | null>(null);
+  const [currentPetGif, setCurrentPetGif] = useState<string | null>(null);
 
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ffmpegRef = useRef(new FFmpeg());
-  const [ffmpegLoaded, setFfmpegLoaded] = useState(false);
+  const messageRef = useRef<HTMLDivElement>(null);
 
   const loadFFmpeg = async () => {
-    const baseURL = "https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm";
+    const baseURL = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm";
     const ffmpeg = ffmpegRef.current;
 
     ffmpeg.on("log", ({ message }) => {
@@ -73,111 +75,130 @@ const PixiMaker = () => {
         "text/javascript"
       ),
     });
-
-    setFfmpegLoaded(true); // Set state to indicate FFmpeg has been loaded
   };
 
   useEffect(() => {
     loadFFmpeg();
   }, []);
 
-  useEffect(() => {
-    console.log(ffmpegRef);
-  });
+  // const drawStaticLayers = async (ctx: any) => {
+  //   await Promise.all([
+  //     loadImage(customBackground || customization.background, ctx),
+  //     loadImage(customization.skin, ctx),
+  //     loadImage(customization.eyes, ctx),
+  //     loadImage(customization.head, ctx),
+  //     loadImage(customization.mouth, ctx),
+  //     loadImage(customization.clothes, ctx),
+  //     loadImage(customization.hand, ctx),
+  //   ]);
+  // };
 
-  const drawStaticLayers = async (ctx) => {
-    await Promise.all([
-      loadImage(customBackground || customization.background, ctx),
-      loadImage(customization.skin, ctx),
-      loadImage(customization.eyes, ctx),
-      loadImage(customization.head, ctx),
-      loadImage(customization.mouth, ctx),
-      loadImage(customization.clothes, ctx),
-      loadImage(customization.hand, ctx),
-    ]);
-  };
-
-  const loadImage = (src, ctx) => {
-    return new Promise((resolve, reject) => {
-      if (!src || src.includes("0.png")) return resolve();
-      const image = new Image();
-      image.src = src;
-      image.onload = () => {
-        ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
-        resolve();
-      };
-      image.onerror = () => reject(`Error loading image: ${src}`);
-    });
-  };
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
+  const loadImages = async (imageSources: string[]) => {
+    const ctx = canvasRef.current?.getContext("2d");
     if (!ctx) return;
 
-    // Draw static layers on every customization change
-    drawStaticLayers(ctx);
+    await Promise.all(
+      imageSources.map((src: string) => {
+        return new Promise<void>((resolve, reject) => {
+          const image = new Image();
+          image.src = src;
+          image.onload = () => {
+            ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
+            resolve();
+          };
+          image.onerror = () => reject(`Error loading image: ${src}`);
+        });
+      })
+    );
+  };
+
+  useEffect(() => {
+    const imageSources = [
+      customBackground || customization.background,
+      customization.skin,
+      customization.eyes,
+      customization.head,
+      customization.mouth,
+      customization.clothes,
+      customization.hand,
+    ].filter((src): src is string => src !== null);
+
+    loadImages(imageSources);
   }, [customization, customBackground]);
 
-  // Handle pet selection to set the GIF overlay
-  const handlePetSelection = (petValue) => {
-    setCurrentPetGif(petValue); // Directly set the GIF URL from the value
-  };
+  // useEffect(() => {
+  //   const canvas = canvasRef.current;
+  //   if (!canvas) return;
 
-  const handleSelect = (category, val) => {
-    setCustomization({ ...customization, [category]: val });
-  };
+  //   const ctx = canvas.getContext("2d");
+  //   if (!ctx) return;
+
+  //   // Draw static layers on every customization change
+  //   drawStaticLayers(ctx);
+  // }, [customization, customBackground]);
 
   const exportGif = async () => {
     if (!currentPetGif || !canvasRef.current) {
-      console.log(currentPetGif);
-      console.log(canvasRef.current);
       console.error("FFmpeg is not loaded or required data is missing");
       return;
     }
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
 
-    // Get the static image from the canvas
-    const staticBackgroundURL = canvas.toDataURL("image/png");
+    // Get the static image from the canvas as a Blob
+    canvas.toBlob(async (blob) => {
+      if (!blob) {
+        console.error("Failed to create blob from canvas");
+        return;
+      }
 
-    const ffmpeg = ffmpegRef.current;
-    console.log(ffmpeg);
+      // Create a URL for the blob
+      const staticBackgroundURL = URL.createObjectURL(blob);
 
-    // Write the static background and the pet GIF into FFmpeg's virtual filesystem
-    await ffmpeg.writeFile(
-      "background.png",
-      await fetchFile(staticBackgroundURL)
-    );
-    await ffmpeg.writeFile("pet.gif", await fetchFile(currentPetGif));
+      const ffmpeg = ffmpegRef.current;
 
-    // Run the FFmpeg overlay command to combine background and GIF
-    await ffmpeg.exec([
-      "-i",
-      "background.png",
-      "-i",
-      "pet.gif",
-      "-filter_complex",
-      "[1:v][0:v]scale2ref[gif][bg];[bg][gif]overlay",
-      "output.gif",
-    ]);
+      // Write the static background and the pet GIF into FFmpeg's virtual filesystem
+      await ffmpeg.writeFile(
+        "background.png",
+        await fetchFile(staticBackgroundURL)
+      );
+      await ffmpeg.writeFile("pet.gif", await fetchFile(currentPetGif));
 
-    // Read the output GIF
-    const data = await ffmpeg.readFile("output.gif");
-    const gifURL = URL.createObjectURL(
-      new Blob([data.buffer], { type: "image/gif" })
-    );
+      // Run the FFmpeg overlay command to combine background and GIF
+      await ffmpeg.exec([
+        "-i",
+        "background.png",
+        "-i",
+        "pet.gif",
+        "-filter_complex",
+        "[1:v][0:v]scale2ref[gif][bg];[bg][gif]overlay",
+        "output.gif",
+      ]);
 
-    // Download the generated GIF
-    const link = document.createElement("a");
-    link.href = gifURL;
-    link.download = "character_with_pet.gif";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      // Read the output GIF
+      const data = await ffmpeg.readFile("output.gif");
+      const gifBlob = new Blob([data], { type: "image/gif" });
+
+      // Revoke the blob URL to free up memory
+      URL.revokeObjectURL(staticBackgroundURL);
+
+      // Download the generated GIF
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(gifBlob);
+      link.download = "character_with_pet.gif";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }, "image/png");
+  };
+
+  // Handle pet selection to set the GIF overlay
+  const handlePetSelection = (petValue: string): void => {
+    setCurrentPetGif(petValue); // Directly set the GIF URL from the value
+  };
+
+  const handleSelect = (category: string, val: string): void => {
+    setCustomization({ ...customization, [category]: val });
   };
 
   return (

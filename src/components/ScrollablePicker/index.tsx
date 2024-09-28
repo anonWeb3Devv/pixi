@@ -1,6 +1,22 @@
 import { PreviewImage, ScrollablePickerWrapper } from "./styled";
 
-const ScrollablePicker = ({ options, category, onSelect }) => {
+interface Option {
+  image: string;
+  name: string;
+  value: string;
+}
+
+interface ScrollablePickerProps {
+  options: Option[];
+  category: string;
+  onSelect: (category: string, value: string) => void;
+}
+
+const ScrollablePicker: React.FC<ScrollablePickerProps> = ({
+  options,
+  category,
+  onSelect,
+}) => {
   return (
     <ScrollablePickerWrapper>
       {options.map((option, index) => (

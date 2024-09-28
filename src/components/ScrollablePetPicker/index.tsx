@@ -3,7 +3,21 @@ import {
   ScrollablePickerWrapper,
 } from "../ScrollablePicker/styled";
 
-const ScrollablePetPicker = ({ options, onSelect }) => {
+interface PetOption {
+  image: string;
+  name: string;
+  value: string;
+}
+
+interface ScrollablePetPickerProps {
+  options: PetOption[];
+  onSelect: (value: string) => void;
+}
+
+const ScrollablePetPicker: React.FC<ScrollablePetPickerProps> = ({
+  options,
+  onSelect,
+}) => {
   return (
     <ScrollablePickerWrapper>
       {options.map((option, index) => (

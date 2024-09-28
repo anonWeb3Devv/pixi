@@ -1,4 +1,3 @@
-// pixiHandlers.js
 import {
   eyeOptions,
   headOptions,
@@ -7,21 +6,43 @@ import {
   skinOptions,
   backgroundOptions,
   mouthOptions,
-//   petOptions,
 } from "../ScrollablePicker/options";
 
-export const resetCustomization = (setCustomization, defaultCustomization, setCustomBackground, setCurrentPetGif) => {
+export interface Customization {
+  eyes: string | null;
+  head: string | null;
+  mouth: string | null;
+  pets: string | null;
+  clothes: string | null;
+  skin: string;
+  hand: string | null;
+  background: string;
+  petOptions: string | null;
+}
+
+interface Option {
+  value: string;
+}
+
+export const resetCustomization = (
+  setCustomization: (customization: Customization) => void,
+  defaultCustomization: Customization,
+  setCustomBackground: (background: string | null) => void,
+  setCurrentPetGif: (petGif: string | null) => void
+): void => {
   setCustomization(defaultCustomization);
   setCustomBackground(null);
-  setCurrentPetGif(null); // Reset the GIF overlay
+  setCurrentPetGif(null); 
 };
 
+
+
 export const randomizeCustomization = (
-  setCustomization,
-  setCustomBackground,
-  setCurrentPetGif
-) => {
-  const randomOption = (options) =>
+  setCustomization: (customization: Customization) => void,
+  setCustomBackground: (background: string | null) => void,
+  setCurrentPetGif: (petGif: string | null) => void
+): void => {
+  const randomOption = (options: Option[]): string =>
     options[Math.floor(Math.random() * options.length)].value;
 
   setCustomization({
@@ -33,19 +54,23 @@ export const randomizeCustomization = (
     skin: randomOption(skinOptions),
     hand: randomOption(handOptions),
     background: randomOption(backgroundOptions),
+    petOptions: null // Ensure this matches the type definition in Customization
   });
   setCustomBackground(null);
-  setCurrentPetGif(null); // Clear the pet GIF
+  setCurrentPetGif(null);
 };
 
-
-export const handleBackgroundUpload = (e, setCustomBackground) => {
-  const file = e.target.files[0];
+export const handleBackgroundUpload = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  setCustomBackground: (background: string | null) => void
+): void => {
+  const file = e.target.files ? e.target.files[0] : null;
   if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
     const reader = new FileReader();
     reader.onload = (event) => {
       const img = new Image();
-      img.src = event.target.result;
+      img.src = typeof event.target?.result === "string" ? event.target.result : "";
+
       img.onload = () => {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
@@ -54,7 +79,7 @@ export const handleBackgroundUpload = (e, setCustomBackground) => {
         canvas.width = 600;
         canvas.height = 600;
 
-        ctx.drawImage(
+        ctx?.drawImage(
           img,
           (img.width - size) / 2,
           (img.height - size) / 2,
@@ -75,8 +100,7 @@ export const handleBackgroundUpload = (e, setCustomBackground) => {
   }
 };
 
-
-export const exportImage = (canvasRef) => {
+export const exportImage = (canvasRef: React.RefObject<HTMLCanvasElement>): void => {
   const canvas = canvasRef.current;
   if (canvas) {
     const image = canvas.toDataURL("image/png");
@@ -88,4 +112,3 @@ export const exportImage = (canvasRef) => {
     console.error("Canvas is not available for export");
   }
 };
-
