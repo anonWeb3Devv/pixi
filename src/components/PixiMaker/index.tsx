@@ -50,7 +50,6 @@ const PixiMaker = () => {
   const [customization, setCustomization] =
     useState<Customization>(defaultCustomization);
 
-  console.log("customization", customization);
   const [customBackground, setCustomBackground] = useState<string | null>(null);
   const [currentPetGif, setCurrentPetGif] = useState<string | null>(null);
 
@@ -84,39 +83,47 @@ const PixiMaker = () => {
     loadFFmpeg();
   }, []);
 
-  const loadImages = async (imageSources: string[]) => {
+  const drawImageOnCanvas = (ctx: CanvasRenderingContext2D, src: string) => {
+    return new Promise<void>((resolve, reject) => {
+      const image = new Image();
+      image.src = src;
+      image.onload = () => {
+        ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
+        resolve();
+      };
+      image.onerror = () => reject(`Error loading image: ${src}`);
+    });
+  };
+
+  const loadImages = async () => {
     const ctx = canvasRef.current?.getContext("2d");
     if (!ctx) return;
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
+    // First, load the background
+    if (customBackground || customization.background) {
+      await drawImageOnCanvas(
+        ctx,
+        customBackground || customization.background
+      );
+    }
+
+    // Then, load the other elements
     await Promise.all(
-      imageSources.map((src: string) => {
-        return new Promise<void>((resolve, reject) => {
-          const image = new Image();
-          image.src = src;
-          image.onload = () => {
-            ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
-            resolve();
-          };
-          image.onerror = () => reject(`Error loading image: ${src}`);
-        });
-      })
+      [
+        customization.skin,
+        customization.eyes,
+        customization.head,
+        customization.mouth,
+        customization.clothes,
+        customization.hand,
+      ].map((src) => src && drawImageOnCanvas(ctx, src))
     );
   };
 
   useEffect(() => {
-    const imageSources = [
-      customBackground || customization.background,
-      customization.skin,
-      customization.eyes,
-      customization.head,
-      customization.mouth,
-      customization.clothes,
-      customization.hand,
-    ].filter((src): src is string => src !== null);
-
-    loadImages(imageSources);
+    loadImages();
   }, [customization, customBackground]);
 
   const exportGif = async () => {
@@ -129,7 +136,7 @@ const PixiMaker = () => {
 
     if (!currentPetGif) {
       // If there's no pet GIF, export the static image from the canvas
-      exportImage(canvasRef, currentPetGif);
+      exportImage(canvasRef);
       return;
     }
 

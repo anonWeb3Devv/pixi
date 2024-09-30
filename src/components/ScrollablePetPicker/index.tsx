@@ -11,7 +11,7 @@ interface PetOption {
 
 interface ScrollablePetPickerProps {
   options: PetOption[];
-  onSelect: (value: string) => void;
+  onSelect: (value: string, name: string) => void;
 }
 
 const ScrollablePetPicker: React.FC<ScrollablePetPickerProps> = ({

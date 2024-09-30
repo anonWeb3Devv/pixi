@@ -54,7 +54,7 @@ export const randomizeCustomization = (
     skin: randomOption(skinOptions),
     hand: randomOption(handOptions),
     background: randomOption(backgroundOptions),
-    petOptions: null, // Ensure this matches the type definition in Customization
+    petOptions: null, 
   });
 
   setCustomBackground(null);
@@ -64,7 +64,7 @@ export const randomizeCustomization = (
 export const handleBackgroundUpload = (
   e: React.ChangeEvent<HTMLInputElement>,
   setCustomBackground: (background: string | null) => void,
-  setCustomization: (customization: Customization) => void
+  setCustomization: React.Dispatch<React.SetStateAction<Customization>>
 ): void => {
   const file = e.target.files ? e.target.files[0] : null;
   if (file && (file.type === "image/png" || file.type === "image/jpeg")) {
@@ -75,15 +75,9 @@ export const handleBackgroundUpload = (
 
       setCustomBackground(uploadedImage);
 
-      const newBackgroundOption = {
-        name: "Uploaded Background",
-        value: uploadedImage,
-        image: uploadedImage,
-      };
-
-      setCustomization((prevCustomization: Customization) => ({
+      setCustomization((prevCustomization) => ({
         ...prevCustomization,
-        background: newBackgroundOption.value,
+        background: uploadedImage, 
       }));
     };
     reader.readAsDataURL(file);
@@ -92,21 +86,19 @@ export const handleBackgroundUpload = (
   }
 };
 
+
 export const exportImage = (
-  canvasRef: React.RefObject<HTMLCanvasElement>
+  canvasRef: React.RefObject<HTMLCanvasElement>,
 ): void => {
   const canvas = canvasRef.current;
   if (canvas) {
     const image = canvas.toDataURL("image/png");
-
     const link = document.createElement("a");
     link.href = image;
     link.download = "custom_pixi.png";
-    
-    document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
   } else {
     console.error("Canvas is not available for export");
   }
 };
+
