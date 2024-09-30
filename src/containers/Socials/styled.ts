@@ -1,9 +1,27 @@
 // SocialsStyles.js
 import styled from 'styled-components';
 
+interface BoxProps {
+  questionMark: boolean; 
+}
+
+
 export const MainWrapper = styled.main`
   width: 80%;
   margin: 0 auto;
+`;
+
+export const Title = styled.h1`
+  text-align: center;
+  font-size: 2.5rem;
+  margin: 20px 0;
+`;
+
+export const Subtitle = styled.h2`
+  text-align: center;
+  font-size: 1.5rem;
+  color: #777; 
+  margin: 0 0 30px 0;
 `;
 
 export const Container = styled.div`
@@ -60,7 +78,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Box = styled.div`
+export const Box = styled.div<BoxProps>`
   background-color: #624713;
   color: white;
   display: flex;
@@ -74,16 +92,12 @@ export const Box = styled.div`
   border: 1px solid black; 
   position: relative; 
 
-  &::after {
-    content: ${(props) => (props.questionMark ? "'?'" : "''")}; 
-    font-size: 48px; 
-    color: #fff; 
-    opacity: 0.4;
-    position: absolute; 
-    top: 50%; 
-    left: 50%;
-    transform: translate(-50%, -50%); 
-  }
+`;
+
+export const QuestionMark = styled.div`
+  font-size: 48px; 
+  color: #fff; 
+  cursor: pointer;
 `;
 
 export const InnerBox = styled.div`
@@ -99,4 +113,29 @@ export const InnerBox = styled.div`
   left: 10%;
   right: 10%; 
   bottom: 10%; 
+
+  a {
+    color: white; 
+    text-decoration: none; 
+    position: absolute; 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    transition: opacity 1s;
+    opacity: 0; 
+    cursor: pointer;
+    
+  }
+
+  ${Box}:hover & {
+    a {
+      opacity: 1;
+    }
+    ${QuestionMark} {
+      opacity: 0; 
+      transition: opacity 1s;
+    }
+  }
 `;
+
+
