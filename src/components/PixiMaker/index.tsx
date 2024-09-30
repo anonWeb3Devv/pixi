@@ -31,6 +31,7 @@ import {
   randomizeCustomization,
   handleBackgroundUpload,
   Customization,
+  exportImage,
 } from "./handlers";
 
 const PixiMaker = () => {
@@ -119,12 +120,18 @@ const PixiMaker = () => {
   }, [customization, customBackground]);
 
   const exportGif = async () => {
-    if (!currentPetGif || !canvasRef.current) {
-      console.error("FFmpeg is not loaded or required data is missing");
+    if (!canvasRef.current) {
+      console.error("Canvas is not loaded");
       return;
     }
 
     const canvas = canvasRef.current;
+
+    if (!currentPetGif) {
+      // If there's no pet GIF, export the static image from the canvas
+      exportImage(canvasRef, currentPetGif);
+      return;
+    }
 
     canvas.toBlob(async (blob) => {
       if (!blob) {

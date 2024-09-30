@@ -98,10 +98,14 @@ export const exportImage = (
   const canvas = canvasRef.current;
   if (canvas) {
     const image = canvas.toDataURL("image/png");
+
     const link = document.createElement("a");
     link.href = image;
     link.download = "custom_pixi.png";
+    
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   } else {
     console.error("Canvas is not available for export");
   }
