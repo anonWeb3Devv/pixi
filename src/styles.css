@@ -1,4 +1,4 @@
-@import "./fonts.css";
+@import "../src/fonts.css";
 
 *,
 *::before,
@@ -47,9 +47,9 @@ html,
 body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif,
-    Handjet-Light, Handjet-Medium, Handjet-Regular, Handjet-SemiBold;
+    dot-gothic-16, Handjet-Light, Handjet-Medium, Handjet-Regular,
+    Handjet-SemiBold;
   scroll-behavior: smooth;
-  /* background-color: #fff852; */
 }
 
 body {
@@ -60,4 +60,9 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+html {
+  height: 100%;
 }

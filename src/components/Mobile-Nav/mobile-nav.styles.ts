@@ -27,7 +27,7 @@ export const MobileNavMenuItem = styled.button`
   cursor: pointer;
   text-transform: uppercase;
   color: #fff;
-  margin: -15px;
+  margin: -10px;
   font-weight: 700;
 
   &:hover {

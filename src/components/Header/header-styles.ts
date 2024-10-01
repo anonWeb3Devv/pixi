@@ -46,6 +46,6 @@ export const MobileNavToggle = styled.button`
   cursor: pointer;
   z-index: 103;
   position: absolute;
-  top: 40px;
+  top: 60px;
   right: 40px;
 `;

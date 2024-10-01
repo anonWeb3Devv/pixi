@@ -8,7 +8,6 @@ export const LandingContainer = styled.div`
   height: 100dvh;
   position: relative;
   overflow: hidden;
-  background: lightblue;
 `;
 
 export const LandingHeading = styled.h1`

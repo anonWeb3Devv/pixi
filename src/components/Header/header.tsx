@@ -140,7 +140,30 @@ export function Header() {
         )}
         {isMobile && (
           <MobileNavToggle onClick={toggleMobileNav}>
-            {isMobileNavOpen ? "close" : "menu"}
+            {isMobileNavOpen ? (
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                height="1em"
+                width="1em"
+              >
+                <path d="M13.46 12L19 17.54V19h-1.46L12 13.46 6.46 19H5v-1.46L10.54 12 5 6.46V5h1.46L12 10.54 17.54 5H19v1.46L13.46 12z" />
+              </svg>
+            ) : (
+              <svg
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+                height="1em"
+                width="1em"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <path d="M4 8h16M4 16h16" />
+              </svg>
+            )}
           </MobileNavToggle>
         )}
       </Navigation>

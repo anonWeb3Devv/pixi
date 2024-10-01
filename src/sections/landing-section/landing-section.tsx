@@ -3,7 +3,6 @@ import {
   LandingHeading,
   LandingHintText,
 } from "./landing-section.styles";
-import { Header } from "../../components/Header";
 import { Overlay } from "../../components/Overlay";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useState } from "react";
