@@ -27,12 +27,12 @@ export const OverlayWrapper = styled.div<{ $fadeOut: boolean }>`
 `;
 
 export const OverlayButton = styled.button`
-  font-family: "Handjet-Regular";
+  font-family: "Handjet-Light";
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 240px;
-  height: 40px;
+  width: 280px;
+  height: 80px;
   font-size: 48px;
   padding: 30px 40px;
   text-transform: uppercase;
@@ -42,6 +42,7 @@ export const OverlayButton = styled.button`
   border-radius: 10px;
   border: #fff dotted;
   color: #fff;
+  background: transparent;
 
   &:hover {
     background: #fff;

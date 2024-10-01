@@ -10,7 +10,7 @@ import { MobileNav } from "../Mobile-Nav";
 
 export function Header() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   function scrollToTop() {
@@ -22,17 +22,17 @@ export function Header() {
     setIsMobileNavOpen((prevState) => !prevState);
   }
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(window.scrollY > 10);
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setIsVisible(window.scrollY > 10);
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
 
   useEffect(() => {
     const handleResize = () => {
