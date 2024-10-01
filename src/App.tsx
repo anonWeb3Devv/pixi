@@ -1,5 +1,7 @@
+import PixiMaker from "./components/PixiMaker";
+
 function App() {
-  return <h1>PIXI</h1>;
+  return <PixiMaker />;
 }
 
 export default App;
