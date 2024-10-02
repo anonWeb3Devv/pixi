@@ -6,6 +6,7 @@ import { MemeSection } from "./sections/memes-section";
 import { useState } from "react";
 import PixiMaker from "./components/PixiMaker";
 import Socials from "./containers/Socials";
+import { Dino } from "./components/dino";
 
 function App() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(true);
@@ -20,6 +21,8 @@ function App() {
       />
 
       <AboutSection />
+
+      <Dino />
 
       <MemesBackground>
         <MemeSection />
