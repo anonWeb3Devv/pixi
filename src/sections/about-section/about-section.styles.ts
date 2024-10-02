@@ -16,7 +16,9 @@ export const LorePageContainer = styled.div`
   min-height: 100svh;
 
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
+  overflow-y: visible;
+  overflow-x: clip;
   padding-bottom: 100px;
 
   > * {

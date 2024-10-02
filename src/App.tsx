@@ -7,8 +7,6 @@ import { useState } from "react";
 import PixiMaker from "./components/PixiMaker";
 import Socials from "./containers/Socials";
 
-// import "./App.css";
-
 function App() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(true);
 
@@ -23,12 +21,12 @@ function App() {
 
       <AboutSection />
 
-      {/* <MemesBackground>
+      <MemesBackground>
         <MemeSection />
-      </MemesBackground> */}
+      </MemesBackground>
 
-      {/* <PixiMaker /> */}
-      {/* <Socials /> */}
+      <PixiMaker />
+      <Socials />
     </main>
   );
 }

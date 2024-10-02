@@ -1,5 +1,5 @@
 import {
-  BackgroundContainer,
+  // BackgroundContainer,
   Container,
   Title,
   Grid,
@@ -7,24 +7,24 @@ import {
 
 export function MemeSection() {
   return (
-    <BackgroundContainer>
-      <Container id="memes">
-        <Title>Endless possibilities</Title>
+    // <BackgroundContainer>
+    <Container id="memes">
+      <Title>Endless possibilities</Title>
 
-        <Grid>
-          <img height={200} width={200} src="/assets/pixiBath.png" />
-          <img height={200} width={400} src="/assets/pixiTitan.png" />
-          <img height={200} width={200} src="/assets/pixiBath.png" />
-          <img height={200} width={400} src="/assets/pixiTitan.png" />
-          <img height={200} width={200} src="/assets/pixiBath.png" />
-          <img height={200} width={400} src="/assets/pixiTitan.png" />
-          <img height={200} width={200} src="/assets/pixiBath.png" />
-          <img height={200} width={400} src="/assets/pixiTitan.png" />
-          <img height={200} width={200} src="/assets/pixiBath.png" />
+      <Grid>
+        <img src="/assets/pixiBath.png" />
+        <img src="/assets/pixiTitan.png" />
+        <img src="/assets/pixiBath.png" />
+        <img src="/assets/pixiTitan.png" />
+        <img src="/assets/pixiBath.png" />
+        <img src="/assets/pixiTitan.png" />
+        <img src="/assets/pixiBath.png" />
+        <img src="/assets/pixiTitan.png" />
+        {/* <img src="/assets/pixiBath.png" /> */}
 
-          {/* <video src="/badApe6.mp4" autoPlay loop muted playsInline></video> */}
-        </Grid>
-      </Container>
-    </BackgroundContainer>
+        {/* <video src="/badApe6.mp4" autoPlay loop muted playsInline></video> */}
+      </Grid>
+    </Container>
+    // </BackgroundContainer>
   );
 }

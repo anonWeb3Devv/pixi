@@ -50,8 +50,6 @@ export function AboutSection() {
       <PixiBottomRightImgContainer>
         <PixiBottomRightImg src={pixiBottomRight} />
       </PixiBottomRightImgContainer>
-      {/*
-       */}
     </LorePageContainer>
   );
 }
