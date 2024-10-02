@@ -2,14 +2,14 @@ import styled from "styled-components";
 import { mobileFirst } from "../../constants/breakpoints";
 
 export const LorePageContainer = styled.div`
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  gap: 30px;
-  justify-content: center;
-  max-width: 1220px;
-  margin-inline: auto;
+  /* padding: 0 20px; */
+  /* display: flex; */
+  /* flex-direction: column-reverse; */
+  /* align-items: center; */
+  /* gap: 30px; */
+  /* justify-content: center; */
+  /* max-width: 1220px; */
+  /* margin-inline: auto; */
   /* display: grid; */
   /* grid-template-columns: repeat(12, 1fr); */
   /* align-items: center; */
@@ -20,6 +20,18 @@ export const LorePageContainer = styled.div`
   overflow-y: visible;
   overflow-x: clip;
   padding-bottom: 100px;
+  min-width: 100svw;
+`;
+
+export const Container = styled.div`
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 30px;
+  justify-content: center;
+  max-width: 1220px;
+  margin-inline: auto;
 
   > * {
     flex: 1;
@@ -46,7 +58,7 @@ export const LorePageTextContainer = styled.div`
 
 export const Heading = styled.h1`
   font-family: "Handjet-Regular";
-  font-size: 40px;
+  font-size: 60px;
   text-transform: uppercase;
 
   /* font-size: 128px; */
@@ -54,13 +66,13 @@ export const Heading = styled.h1`
   /* color: #000; */
 
   @media ${mobileFirst.md} {
-    font-size: 60px;
+    font-size: 80px;
   }
 `;
 
 export const Text = styled.p`
   font-family: "Handjet-Regular";
-  font-size: 25px;
+  font-size: 30px;
 
   /* color: #000; */
   /* max-width: 40ch; */
@@ -71,7 +83,7 @@ export const Text = styled.p`
 
   /* font-size: 64px; */
   @media ${mobileFirst.md} {
-    font-size: 35px;
+    font-size: 25px;
   }
 `;
 

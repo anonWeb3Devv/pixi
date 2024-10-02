@@ -19,6 +19,7 @@
     "react-dom": "^18.3.1",
     "react-scroll": "^1.9.0",
     "styled-components": "^6.1.13",
+    "twitter-api-sdk": "^1.2.1",
     "use-sound": "^4.0.3"
   },
   "devDependencies": {

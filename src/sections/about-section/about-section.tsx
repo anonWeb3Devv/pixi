@@ -13,6 +13,7 @@ import {
   PixiBottomLeftImg,
   PixiBottomRightImgContainer,
   PixiBottomRightImg,
+  Container,
 } from "./about-section.styles";
 import pixiMain from "/assets/pixiMain.png";
 import pixiTopRight from "/assets/pixiZen.png";
@@ -23,19 +24,21 @@ import pixiBottomLeft from "/assets/pixiWave.jpeg";
 export function AboutSection() {
   return (
     <LorePageContainer id="about">
-      <LorePageTextContainer>
-        <Heading>the pixiverse</Heading>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum in
-          doloribus vero, atque placeat recusandae optio exercitationem alias
-          illo autem, quam beatae. Beatae, deleniti error. Repellendus labore
-          quis veniam iusto.
-        </Text>
-      </LorePageTextContainer>
+      <Container>
+        <LorePageTextContainer>
+          <Heading>the pixiverse</Heading>
+          <Text>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum in
+            doloribus vero, atque placeat recusandae optio exercitationem alias
+            illo autem, quam beatae. Beatae, deleniti error. Repellendus labore
+            quis veniam iusto.
+          </Text>
+        </LorePageTextContainer>
 
-      <PixiImageMainContainer>
-        <PixiMainImage src={pixiMain} />
-      </PixiImageMainContainer>
+        <PixiImageMainContainer>
+          <PixiMainImage src={pixiMain} />
+        </PixiImageMainContainer>
+      </Container>
 
       {/* Image Containers */}
       <PixiTopLeftImgContainer>
