@@ -43,10 +43,8 @@ export function LandingSection({
               "TOKEN ADDRESS COPIED!"
             ) : (
               <>
-                <span className="desktop-only">
-                  CA: FtHCi9cxJSSizrzMzsPjAfTfJi32V1CGRDM5Skqn4QBF
-                </span>{" "}
-                <span className="mobile-only"></span>
+                <span className="desktop-only">CA: {DATA.contractAddress}</span>{" "}
+                {/* <span className="mobile-only">CA: copy to clipboard</span> */}
               </>
             )}
           </LandingHintText>

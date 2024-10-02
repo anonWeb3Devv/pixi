@@ -3,9 +3,11 @@ import { Accessory1, Accessory2, Accessory3, Accessory4 } from "./memes-styles";
 
 const AccessoryBackgroundWrapper = styled.div`
   position: relative;
-  overflow: hidden;
-  height: 100dvh;
-  width: 100%;
+  /* overflow: hidden; */
+  /* height: 100dvh; */
+  min-height: 100svh;
+  overflow-y: visible;
+  overflow-x: clip;
 `;
 
 export function MemesBackground({ children }: { children: React.ReactNode }) {
