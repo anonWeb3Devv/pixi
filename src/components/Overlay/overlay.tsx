@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { OverlayWrapper, OverlayButton } from "./overlay.styles";
 
 const FADE_OUT_DURATION = 1000;
