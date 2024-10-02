@@ -26,7 +26,7 @@ export const Title = styled.h2`
   margin-bottom: 50px;
   color: #000;
   /* margin-top: 100px; */
-  font-size: 24px;
+  font-size: 40px;
 
   a {
     text-decoration: none;
