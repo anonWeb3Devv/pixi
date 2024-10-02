@@ -21,7 +21,7 @@ function App() {
         setIsOverlayOpen={setIsOverlayOpen}
       />
 
-      {/* <AboutSection /> */}
+      <AboutSection />
 
       {/* <MemesBackground>
         <MemeSection />

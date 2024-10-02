@@ -6,10 +6,12 @@ export const LandingContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100dvh;
+  height: 100svh;
   /* position: relative; */
   overflow: hidden;
   padding-inline: 8px;
+  max-width: 1220px;
+  margin-inline: auto;
 `;
 
 export const LandingHeading = styled.h1`

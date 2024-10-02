@@ -6,7 +6,7 @@ const FADE_OUT_DURATION = 500;
 export const OverlayWrapper = styled.div<{ $fadeOut: boolean }>`
   background: #1a291e;
   height: 100svh;
-  width: 100dvw;
+  width: 100svw;
   position: fixed;
   z-index: 1000;
   display: flex;
