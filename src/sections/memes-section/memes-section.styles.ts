@@ -5,6 +5,7 @@ export const BackgroundContainer = styled.div`
   width: 100%;
   background: url("/assets/memeBg.png") repeat;
   position: relative;
+  height: 100dvh;
 `;
 
 export const Container = styled.div`
@@ -21,6 +22,7 @@ export const Title = styled.h2`
   text-transform: uppercase;
   margin-bottom: 100px;
   color: #000;
+  margin-top: 100px;
 
   a {
     text-decoration: none;
