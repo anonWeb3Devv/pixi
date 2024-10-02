@@ -4,13 +4,16 @@ import { AboutSection } from "./sections/about-section";
 import { MemesBackground } from "./components/MemesBackground";
 import { MemeSection } from "./sections/memes-section";
 import { useState } from "react";
-import "./App.css";
+import PixiMaker from "./components/PixiMaker";
+import Socials from "./containers/Socials";
+
+// import "./App.css";
 
 function App() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(true);
 
   return (
-    <>
+    <main>
       <LandingSection
         isOverlayOpen={isOverlayOpen}
         setIsOverlayOpen={setIsOverlayOpen}
@@ -20,7 +23,10 @@ function App() {
         <MemeSection />
       </MemesBackground>
       {!isOverlayOpen && <Header />}
-    </>
+
+      <PixiMaker />
+      <Socials />
+    </main>
   );
 }
 
