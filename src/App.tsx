@@ -14,18 +14,21 @@ function App() {
 
   return (
     <main>
+      {!isOverlayOpen && <Header />}
+
       <LandingSection
         isOverlayOpen={isOverlayOpen}
         setIsOverlayOpen={setIsOverlayOpen}
       />
-      <AboutSection />
-      <MemesBackground>
-        <MemeSection />
-      </MemesBackground>
-      {!isOverlayOpen && <Header />}
 
-      <PixiMaker />
-      <Socials />
+      {/* <AboutSection /> */}
+
+      {/* <MemesBackground>
+        <MemeSection />
+      </MemesBackground> */}
+
+      {/* <PixiMaker /> */}
+      {/* <Socials /> */}
     </main>
   );
 }
