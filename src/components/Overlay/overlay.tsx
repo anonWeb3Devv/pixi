@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { OverlayWrapper, OverlayButton } from "./overlay.styles";
 
 const FADE_OUT_DURATION = 1000;
@@ -19,6 +19,15 @@ export function Overlay({ isOverlayOpen, setIsOverlayOpen }: OverlayProps) {
       setTimeout(() => setIsOverlayOpen(false), FADE_OUT_DURATION);
     }, 700);
   }
+
+  useEffect(() => {
+    // block scrolling when overlay is open
+    if (isOverlayOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isOverlayOpen]);
 
   return (
     <>
