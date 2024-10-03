@@ -94,18 +94,7 @@ export function MobileNav({
           memes
         </Link>
       </MobileNavMenuItem>
-      <MobileNavMenuItem>
-        <Link
-          activeClass="active"
-          spy={true}
-          smooth={true}
-          duration={100}
-          to="news"
-          onClick={() => setIsMobileNavOpen(false)}
-        >
-          news
-        </Link>
-      </MobileNavMenuItem>
+
       <MobileNavMenuItem>
         <Link
           activeClass="active"

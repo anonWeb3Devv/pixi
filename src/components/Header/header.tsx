@@ -134,17 +134,6 @@ export function Header() {
                 spy={true}
                 smooth={true}
                 duration={100}
-                to="news"
-                onClick={scrollToTop}
-              >
-                news
-              </Link>
-            </NavItemSpan>
-            <NavItemSpan>
-              <Link
-                spy={true}
-                smooth={true}
-                duration={100}
                 to="social"
                 onClick={scrollToTop}
               >

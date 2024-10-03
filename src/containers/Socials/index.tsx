@@ -24,7 +24,7 @@ const Socials = () => {
   ];
 
   return (
-    <MainWrapper>
+    <MainWrapper id="social">
       <Title>Social</Title>
       <Subtitle>Find the social links hidden in the boxes</Subtitle>
       <Container>

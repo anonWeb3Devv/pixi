@@ -131,7 +131,7 @@ export function Dino() {
   }, [gameLoop, handleKeyDown, isRunning]);
 
   return (
-    <PixiRunnerWrapper onClick={handleKeyDown}>
+    <PixiRunnerWrapper onClick={handleKeyDown} id="pixi-runner">
       <Heading>PIXI RUNNER</Heading>
 
       <div
