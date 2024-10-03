@@ -12,7 +12,7 @@ export function MemeSection() {
       <Title>Endless possibilities</Title>
 
       <Grid>
-        <img src="/assets/pixiBath.png" />
+        <img src="/assets/goldenPixi.png" />
         <img src="/assets/pixiTitan.png" />
         <img src="/assets/davinciPixi.jpeg" />
         <img src="/assets/hopiumPixi.jpeg" />
