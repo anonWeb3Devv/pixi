@@ -3,9 +3,9 @@ import {
   MobileNavContainer,
   MobileNavMenuItem,
 } from "./mobile-nav.styles";
-import { Link } from "react-scroll";
 import { useEffect } from "react";
-
+import { Link as RouterLink } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 interface MobileNavProps {
   setIsMobileNavOpen: (value: boolean) => void;
   isMobileNavOpen: boolean;
@@ -35,77 +35,49 @@ export function MobileNav({
         </svg>
       </MobileNavClose>
       <MobileNavMenuItem>
-        <Link
-          activeClass="active"
-          spy={true}
-          smooth={true}
-          duration={100}
-          to="home"
-          onClick={() => setIsMobileNavOpen(false)}
-        >
+        <HashLink to="/" onClick={() => setIsMobileNavOpen(false)}>
           Home
-        </Link>
+        </HashLink>
       </MobileNavMenuItem>
       <MobileNavMenuItem>
-        <Link
-          activeClass="active"
-          spy={true}
-          smooth={true}
-          duration={100}
-          to="about"
-          onClick={() => setIsMobileNavOpen(false)}
-        >
+        <HashLink to="/#about" onClick={() => setIsMobileNavOpen(false)}>
           About
-        </Link>
+        </HashLink>
       </MobileNavMenuItem>
       <MobileNavMenuItem>
-        <Link
-          activeClass="active"
-          spy={true}
-          smooth={true}
-          duration={100}
-          to="pixi-runner"
+        <RouterLink
+          // activeClass="active"
+          // spy={true}
+          // smooth={true}
+          // duration={100}
+          to="/runner"
           onClick={() => setIsMobileNavOpen(false)}
         >
           pixi runner
-        </Link>
+        </RouterLink>
       </MobileNavMenuItem>
       <MobileNavMenuItem>
-        <Link
-          activeClass="active"
-          spy={true}
-          smooth={true}
-          duration={100}
-          to="pixi-maker"
+        <RouterLink
+          // activeClass="active"
+          // spy={true}
+          // smooth={true}
+          // duration={100}
+          to="/maker"
           onClick={() => setIsMobileNavOpen(false)}
         >
           pixi maker
-        </Link>
+        </RouterLink>
       </MobileNavMenuItem>
       <MobileNavMenuItem>
-        <Link
-          activeClass="active"
-          spy={true}
-          smooth={true}
-          duration={100}
-          to="memes"
-          onClick={() => setIsMobileNavOpen(false)}
-        >
+        <HashLink to="/#memes" onClick={() => setIsMobileNavOpen(false)}>
           memes
-        </Link>
+        </HashLink>
       </MobileNavMenuItem>
 
       <MobileNavMenuItem>
-        <Link
-          activeClass="active"
-          spy={true}
-          smooth={true}
-          duration={100}
-          to="social"
-          onClick={() => setIsMobileNavOpen(false)}
-        >
+        <HashLink to="/#social" onClick={() => setIsMobileNavOpen(false)}>
           social
-        </Link>
+        </HashLink>
       </MobileNavMenuItem>
       {/* Repeat for other links */}
     </MobileNavContainer>

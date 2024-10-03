@@ -47,7 +47,7 @@ export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  z-index: 1000000;
+  z-index: 1;
   gap: 10px;
 
   > img {
