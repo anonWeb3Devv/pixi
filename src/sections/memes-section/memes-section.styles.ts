@@ -47,11 +47,13 @@ export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
+  z-index: 1000000;
 
   > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 10px;
   }
   gap: 10px;
 

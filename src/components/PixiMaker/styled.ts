@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { theme } from '../../styles/theme';
-
-
+import styled from "styled-components";
+import { theme } from "../../styles/theme";
 
 export const Title = styled.h1`
   font-size: 70px;
-  margin: 30px 0;
+  margin: 60px 0;
+  font-family: "Handjet-Regular";
+  text-transform: uppercase;
 `;
 
 export const GeneratorWrapper = styled.div`
@@ -23,7 +23,7 @@ export const PreviewWrapper = styled.div`
 
 export const CustomizationSection = styled.div`
   width: 100%;
-  padding: 20px 0; 
+  padding: 20px 0;
 `;
 
 export const CategoryHeading = styled.h4`
@@ -32,7 +32,7 @@ export const CategoryHeading = styled.h4`
   text-align: center;
   font-size: 20px;
   text-transform: uppercase;
-
+  font-family: "Handjet-Regular";
 `;
 
 export const StyledButton = styled.button`
@@ -48,12 +48,12 @@ export const StyledButton = styled.button`
   text-align: center;
   transition: background-color 0.3s ease;
   text-transform: uppercase;
+  font-family: "Handjet-Regular";
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #7098ff;
   }
 `;
-
 
 export const StyledInput = styled.input`
   display: none;
@@ -72,8 +72,10 @@ export const LabelButton = styled.label`
   display: block;
   transition: background-color 0.3s ease;
   text-transform: uppercase;
+  font-family: "Handjet-Regular";
+
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #7098ff;
   }
 `;
 

@@ -1,10 +1,9 @@
 // SocialsStyles.js
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface BoxProps {
-  questionMark: boolean; 
+  questionMark: boolean;
 }
-
 
 export const MainWrapper = styled.main`
   width: 80%;
@@ -14,14 +13,18 @@ export const MainWrapper = styled.main`
 export const Title = styled.h1`
   text-align: center;
   font-size: 2.5rem;
+  text-transform: uppercase;
   margin: 20px 0;
+  font-family: "Handjet-Regular";
+  margin-top: 100px;
 `;
 
 export const Subtitle = styled.h2`
   text-align: center;
   font-size: 1.5rem;
-  color: #777; 
+  color: #777;
   margin: 0 0 30px 0;
+  font-family: "Handjet-Light";
 `;
 
 export const Container = styled.div`
@@ -86,45 +89,44 @@ export const Box = styled.div<BoxProps>`
   align-items: center;
   border-radius: 15px;
   font-size: 24px;
-  width: 100%; 
-  height: 0; 
-  padding-top: 100%; 
-  border: 1px solid black; 
-  position: relative; 
-
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+  border: 1px solid black;
+  position: relative;
 `;
 
 export const QuestionMark = styled.div`
-  font-size: 48px; 
-  color: #fff; 
+  font-size: 48px;
+  color: #fff;
   cursor: pointer;
+  background-image: url("/unknownBlock.png");
 `;
 
 export const InnerBox = styled.div`
-  background-color: #67532D; 
+  background-color: #67532d;
   border-radius: 15px;
-  width: 80%; 
-  height: 80%; 
-  display: flex; 
+  width: 80%;
+  height: 80%;
+  display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute; 
+  position: absolute;
   top: 10%;
   left: 10%;
-  right: 10%; 
-  bottom: 10%; 
+  right: 10%;
+  bottom: 10%;
 
   a {
-    color: white; 
-    text-decoration: none; 
-    position: absolute; 
-    top: 50%; 
+    color: white;
+    text-decoration: none;
+    position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
     transition: opacity 1s;
-    opacity: 0; 
+    opacity: 0;
     cursor: pointer;
-    
   }
 
   ${Box}:hover & {
@@ -132,10 +134,8 @@ export const InnerBox = styled.div`
       opacity: 1;
     }
     ${QuestionMark} {
-      opacity: 0; 
+      opacity: 0;
       transition: opacity 1s;
     }
   }
 `;
-
-

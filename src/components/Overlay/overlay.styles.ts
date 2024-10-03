@@ -4,7 +4,7 @@ import { mobileFirst } from "../../constants/breakpoints";
 const FADE_OUT_DURATION = 500;
 
 export const OverlayWrapper = styled.div<{ $fadeOut: boolean }>`
-  background: #1a291e;
+  background: #a0b4f9;
   height: 100svh;
   width: 100svw;
   position: fixed;
@@ -23,7 +23,7 @@ export const OverlayWrapper = styled.div<{ $fadeOut: boolean }>`
 `;
 
 export const OverlayButton = styled.button`
-  font-family: "Handjet-Light";
+  font-family: "Handjet-Regular";
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,6 +35,8 @@ export const OverlayButton = styled.button`
   border: #fff dotted;
   color: #fff;
   background: transparent;
+  width: 200px;
+  height: 60px;
 
   &:hover {
     background: #fff;
