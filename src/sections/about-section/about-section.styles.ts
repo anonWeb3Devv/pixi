@@ -24,14 +24,16 @@ export const LorePageContainer = styled.div`
 `;
 
 export const Container = styled.div`
-  padding: 0 20px;
+  /* padding: 0 20px; */
   margin-top: 100px;
   display: flex;
   flex-direction: column-reverse;
+  min-height: 100svh;
   align-items: center;
   gap: 30px;
   justify-content: center;
   max-width: 1220px;
+  width: 80%;
   margin-inline: auto;
 
   > * {

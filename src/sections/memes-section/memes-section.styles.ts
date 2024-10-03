@@ -16,7 +16,9 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   padding-block: 80px;
-  padding-inline: 20px;
+  /* padding-inline: 50px;
+ */
+  width: 80%;
 `;
 
 export const Title = styled.h2`

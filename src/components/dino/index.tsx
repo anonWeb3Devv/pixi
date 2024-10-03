@@ -186,7 +186,8 @@ const PixiRunnerWrapper = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding-inline: 50px;
+  /* padding-inline: 50px; */
   margin-inline: auto;
   max-width: 1220px;
+  width: 80%;
 `;
