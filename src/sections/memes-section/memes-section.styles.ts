@@ -100,8 +100,8 @@ export const Grid = styled.div`
   }
 
   & :nth-child(7) {
-    grid-column: span 1;
-    grid-row: span 1;
+    grid-column: span 2;
+    grid-row: span 2;
   }
 
   & :nth-child(8) {

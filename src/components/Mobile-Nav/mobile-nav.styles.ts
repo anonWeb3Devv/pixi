@@ -4,7 +4,7 @@ export const MobileNavContainer = styled.div<{
   $isOpen: boolean;
 }>`
   position: fixed;
-  z-index: 1000;
+  z-index: 10000000000000;
   background: #a0b4f9;
   display: flex;
   flex-direction: column;
