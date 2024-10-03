@@ -13,10 +13,10 @@ export const LandingContainer = styled.div`
   /* max-width: 1220px; */
   margin-inline: auto;
 
-  background-image: url("/assets/pixiBath.png");
+  background-image: url("/assets/pixi-bg.png");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: 30%;
 `;
 
 export const LandingHeading = styled.h1`

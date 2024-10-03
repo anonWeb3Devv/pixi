@@ -28,7 +28,7 @@ export const OverlayButton = styled.button`
   justify-content: center;
   align-items: center;
   font-size: 30px;
-  padding: 30px 40px;
+  padding: 20px 60px;
   text-transform: uppercase;
   transition: 0.2s ease-in;
   border-radius: 10px;
@@ -44,6 +44,6 @@ export const OverlayButton = styled.button`
 
   @media ${mobileFirst.xs} {
     font-size: 48px;
-    padding: 30px 40px;
+    /* padding: 30px 40px; */
   }
 `;

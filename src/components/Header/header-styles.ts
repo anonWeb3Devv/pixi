@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { mobileFirst } from "../../constants/breakpoints";
 
-export const Navigation = styled.ul`
+export const Navigation = styled.ul<{ $isScrolling: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,10 +10,19 @@ export const Navigation = styled.ul`
   top: 0px;
   width: 100%;
   z-index: 102;
-  margin-top: 20px;
+  /* margin-top: 20px; */
+
+  transition: background-color 0.5s ease;
+  background-color: transparent;
+
 
   @media ${mobileFirst.sm} {
     padding: 20px 60px;
+  }
+
+  @media ${mobileFirst.sm} {
+    background-color: ${(props) =>
+      props.$isScrolling ? "rgba(255, 255, 255, 0.8)" : "transparent"};
   }
 `;
 

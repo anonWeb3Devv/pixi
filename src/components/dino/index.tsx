@@ -9,6 +9,7 @@ import { GameOverScreen } from "./game-over";
 import { useData } from "./use-data";
 import { useObstacle } from "./use-obstacle";
 import { LeaderBoard } from "./leaderboard";
+import styled from "styled-components";
 
 const PLAYER_HEIGHT = 60;
 const PLAYER_WIDTH = 40;
@@ -130,19 +131,18 @@ export function Dino() {
   }, [gameLoop, handleKeyDown, isRunning]);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        minHeight: "100svh",
-        overflow: "hidden",
-        display: "flex",
-        flexDirection: "column",
-      }}
-      onClick={handleKeyDown}
-    >
+    <PixiRunnerWrapper onClick={handleKeyDown}>
       <Heading>PIXI RUNNER</Heading>
 
-      <div style={{ position: "relative", height: "400px" }}>
+      <div
+        style={{
+          position: "relative",
+          height: "400px",
+          borderRadius: "10px",
+          overflow: "hidden",
+          marginBlock: "50px",
+        }}
+      >
         {!isRunning && <Backdrop />}
 
         {!isRunning && !isGameOver && <StartScreen />}
@@ -176,6 +176,17 @@ export function Dino() {
       </div>
 
       <LeaderBoard />
-    </div>
+    </PixiRunnerWrapper>
   );
 }
+
+const PixiRunnerWrapper = styled.div`
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-inline: 50px;
+  margin-inline: auto;
+  max-width: 1220px;
+`;

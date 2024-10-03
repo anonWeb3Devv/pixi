@@ -13,6 +13,8 @@ export function Header() {
   // const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  const [isScrolling, setIsScrolling] = useState(false);
+
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setIsMobileNavOpen(false);
@@ -21,6 +23,19 @@ export function Header() {
   function toggleMobileNav() {
     setIsMobileNavOpen((prevState) => !prevState);
   }
+
+  useEffect(() => {
+    // find if the user is scrolling
+    const handleScroll = () => {
+      setIsScrolling(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -49,7 +64,7 @@ export function Header() {
 
   return (
     <>
-      <Navigation>
+      <Navigation $isScrolling={isScrolling}>
         {!isMobile && (
           <NavItemContainer>
             <NavItemSpan>
