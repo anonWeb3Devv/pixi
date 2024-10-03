@@ -45,7 +45,7 @@ export const LandingHeading = styled.h1`
 
   @media ${mobileFirst.md} {
     font-size: 60px;
-    width: 95%; // Adjust the width for medium screens
+    width: 40%; // Adjust the width for medium screens
   }
 
   @media (max-width: 768px) {

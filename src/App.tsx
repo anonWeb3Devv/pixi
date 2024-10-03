@@ -24,9 +24,9 @@ function App() {
 
       <Dino />
 
-      <MemesBackground>
-        <MemeSection />
-      </MemesBackground>
+      {/* <MemesBackground> */}
+      <MemeSection />
+      {/* </MemesBackground> */}
 
       <PixiMaker />
       <Socials />
