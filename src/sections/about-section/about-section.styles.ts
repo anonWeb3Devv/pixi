@@ -30,7 +30,7 @@ export const Container = styled.div`
   flex-direction: column-reverse;
   min-height: 100svh;
   align-items: center;
-  gap: 30px;
+  gap: 142px;
   justify-content: center;
   max-width: 1220px;
   width: 80%;
