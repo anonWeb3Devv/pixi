@@ -97,7 +97,7 @@ export const Box = styled.div<BoxProps>`
 
   background-image: ${(props) => (!props.$questionmark ? 'none' : 'url(src/assets/brick.jpg)')};
   background-size: cover;
-  background-position: center; // Center the background image
+  background-position: center; 
   @media ${mobileFirst.xs} {
     border-radius: 15px;
   }
