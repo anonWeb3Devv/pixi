@@ -8,8 +8,10 @@ import {
   Subtitle,
 } from "./styled";
 import blockImage from "../../assets/block.png";
+import brickImage from "../../assets/brick.jpg";
 import { useState } from "react";
 import useStore from "../../store/useStore";
+
 const Socials = () => {
   const boxes = Array.from({ length: 9 }, (_, index) => index + 1);
   const { isMobile } = useStore();
@@ -48,7 +50,10 @@ const Socials = () => {
         {boxes.map((box, index) => {
           const link = links[index];
           return (
-            <Box key={box}>
+            <Box
+              $questionmark={index === 2 || index === 5 ? true : false}
+              key={box}
+            >
               <InnerBox
                 $questionmark={index === 2 || index === 5 ? true : false}
               >
@@ -57,14 +62,7 @@ const Socials = () => {
                     <QuestionMark>
                       <img src={blockImage} alt="block"></img>
                     </QuestionMark>
-                    {/* <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link"
-                    >
-                      {link.name}
-                    </a> */}
+
                     <p
                       onClick={(e) => {
                         e.preventDefault();
@@ -75,7 +73,15 @@ const Socials = () => {
                       {link.name}
                     </p>
                   </>
-                ) : null}
+                ) : (
+                  <QuestionMark>
+                    <img
+                      style={{ borderRadius: isMobile ? "0px" : "15px" }}
+                      src={brickImage}
+                      alt="bricks"
+                    />
+                  </QuestionMark>
+                )}
               </InnerBox>
             </Box>
           );
