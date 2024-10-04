@@ -217,7 +217,12 @@ const PixiMaker = () => {
     <GeneratorWrapper id="pixi-maker">
       <Title>Pixi Maker</Title>
       <PreviewWrapper>
-        <canvas ref={canvasRef} width="600" height="600"></canvas>
+        <canvas
+          style={{ borderRadius: "10px" }}
+          ref={canvasRef}
+          width="600"
+          height="600"
+        ></canvas>
         {currentPetGif && (
           <img
             src={currentPetGif}
