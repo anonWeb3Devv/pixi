@@ -62,7 +62,7 @@ export const LorePageTextContainer = styled.div`
 
 export const Heading = styled.h1`
   font-family: "Handjet-Regular";
-  font-size: 60px;
+  font-size: 50px;
   text-transform: uppercase;
 
   /* font-size: 128px; */

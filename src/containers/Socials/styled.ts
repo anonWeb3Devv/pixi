@@ -13,11 +13,15 @@ export const MainWrapper = styled.main`
 
 export const Title = styled.h1`
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 50px;
   text-transform: uppercase;
   margin: 20px 0;
   font-family: "Handjet-Regular";
   margin-top: 100px;
+
+  @media ${mobileFirst.md} {
+    font-size: 5rem;
+  }
 `;
 
 export const Subtitle = styled.h2`
@@ -95,9 +99,10 @@ export const Box = styled.div<BoxProps>`
   border: 1px solid black;
   position: relative;
 
-  background-image: ${(props) => (!props.$questionmark ? 'none' : 'url(src/assets/brick.jpg)')};
+  background-image: ${(props) =>
+    !props.$questionmark ? "none" : "url(src/assets/brick.jpg)"};
   background-size: cover;
-  background-position: center; 
+  background-position: center;
   @media ${mobileFirst.xs} {
     border-radius: 15px;
   }

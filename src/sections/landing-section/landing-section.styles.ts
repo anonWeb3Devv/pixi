@@ -20,6 +20,7 @@ export const LandingContainer = styled.div`
     ), */ url("/assets/pixi-bg.png");
   background-size: cover;
   background-repeat: no-repeat;
+  /* background-position-y: -20px; */
 
   @media screen and (max-width: 768px) {
     background-position-x: 88%;
@@ -47,7 +48,7 @@ export const LandingHeading = styled.h1`
 
   @media ${mobileFirst.md} {
     font-size: 60px;
-    width: 40%; // Adjust the width for medium screens
+    width: 55%; // Adjust the width for medium screens
   }
 
   @media (max-width: 768px) {
@@ -56,6 +57,10 @@ export const LandingHeading = styled.h1`
 
   @media (max-width: 480px) {
     width: 75%; // Further decrease width for very small screens
+  }
+
+  @media (min-width: 1240px) {
+    width: 50%;
   }
 `;
 

@@ -6,7 +6,7 @@ export const Title = styled.h1`
   font-size: 80px;
   margin: 30px 0 20px 0;
   line-height: 70px;
-  margin: 70px 0 60px 0;
+  margin: 100px 0 55px 0;
 
   text-transform: uppercase;
 
