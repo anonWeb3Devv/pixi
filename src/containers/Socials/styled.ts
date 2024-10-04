@@ -83,18 +83,21 @@ export const Container = styled.div`
 `;
 
 export const Box = styled.div<BoxProps>`
-  background-color: #624713;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 15px;
   font-size: 24px;
   width: 100%;
   height: 0;
   padding-top: 100%;
   border: 1px solid black;
   position: relative;
+
+  background-image: ${(props) => (!props.$questionmark ? 'none' : 'url(src/assets/brick.jpg)')};
+  background-size: cover;
+  background-position: center; // Center the background image
   @media ${mobileFirst.xs} {
     border-radius: 15px;
   }

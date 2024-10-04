@@ -50,7 +50,10 @@ const Socials = () => {
         {boxes.map((box, index) => {
           const link = links[index];
           return (
-            <Box key={box}>
+            <Box
+              $questionmark={index === 2 || index === 5 ? true : false}
+              key={box}
+            >
               <InnerBox
                 $questionmark={index === 2 || index === 5 ? true : false}
               >
@@ -59,14 +62,7 @@ const Socials = () => {
                     <QuestionMark>
                       <img src={blockImage} alt="block"></img>
                     </QuestionMark>
-                    {/* <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link"
-                    >
-                      {link.name}
-                    </a> */}
+
                     <p
                       onClick={(e) => {
                         e.preventDefault();
@@ -80,7 +76,7 @@ const Socials = () => {
                 ) : (
                   <QuestionMark>
                     <img
-                      style={{ borderRadius: "15px" }}
+                      style={{ borderRadius: isMobile ? "0px" : "15px" }}
                       src={brickImage}
                       alt="bricks"
                     />
