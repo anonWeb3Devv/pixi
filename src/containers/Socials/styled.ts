@@ -98,30 +98,27 @@ export const Box = styled.div<BoxProps>`
   @media ${mobileFirst.xs} {
     border-radius: 15px;
   }
-
 `;
-
 
 export const QuestionMark = styled.div`
   border-radius: 10px;
   overflow: hidden;
   pointer-events: none;
-  
 `;
 
 export const InnerBox = styled.div<BoxProps>`
   background-color: #67532d;
   border-radius: 15px;
-  width: 80%;
-  height: 80%;
+  width: ${(props) => (props.$questionmark ? "80%" : "100%")};
+  height: ${(props) => (props.$questionmark ? "80%" : "100%")};
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 10%;
-  left: 10%;
-  right: 10%;
-  bottom: 10%;
+  top: ${(props) => (props.$questionmark ? "10%" : "0")};
+  left: ${(props) => (props.$questionmark ? "10%" : "0")};
+  right: ${(props) => (props.$questionmark ? "10%" : "0")};
+  bottom: ${(props) => (props.$questionmark ? "10%" : "0")};
 
   p {
     color: white;
@@ -137,11 +134,13 @@ export const InnerBox = styled.div<BoxProps>`
     font-size: 12px;
 
     @media ${mobileFirst.xs} {
-    font-size: 18px;
-  }
+      font-size: 18px;
+    }
   }
 
-  ${props => props.$questionmark && `
+  ${(props) =>
+    props.$questionmark &&
+    `
     ${Box}:hover & {
       p {
         opacity: 1; // Show link when questionMark is present
@@ -152,5 +151,4 @@ export const InnerBox = styled.div<BoxProps>`
       }
     }
   `}
-
 `;

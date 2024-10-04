@@ -79,7 +79,11 @@ const Socials = () => {
                   </>
                 ) : (
                   <QuestionMark>
-                    <img src={brickImage} alt="bricks" />
+                    <img
+                      style={{ borderRadius: "15px" }}
+                      src={brickImage}
+                      alt="bricks"
+                    />
                   </QuestionMark>
                 )}
               </InnerBox>
