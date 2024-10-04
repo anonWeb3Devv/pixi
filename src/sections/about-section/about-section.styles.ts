@@ -48,6 +48,7 @@ export const Container = styled.div`
 
 export const LorePageTextContainer = styled.div`
   text-align: center;
+  margin-top: -100px;
 
   /* grid-column: 1 / 7; */
   /* display: flex; */
@@ -129,6 +130,10 @@ export const PixiTopLeftImgContainer = styled.div`
       transform: translateX(0);
     }
   }
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const PixiTopLeftImg = styled.img`
@@ -146,6 +151,10 @@ export const PixiTopRightImgContainer = styled.div`
   height: 500px;
   width: 500px;
   z-index: -1;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const PixiTopRightImg = styled.img`
@@ -176,6 +185,10 @@ export const PixiBottomRightImgContainer = styled.div`
     100% {
       transform: translateY(0);
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -209,6 +222,10 @@ export const PixiBottomLeftImgContainer = styled.div`
     100% {
       transform: translateY(0);
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `;
 
