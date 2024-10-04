@@ -8,8 +8,10 @@ import {
   Subtitle,
 } from "./styled";
 import blockImage from "../../assets/block.png";
+import brickImage from "../../assets/brick.jpg";
 import { useState } from "react";
 import useStore from "../../store/useStore";
+
 const Socials = () => {
   const boxes = Array.from({ length: 9 }, (_, index) => index + 1);
   const { isMobile } = useStore();
@@ -75,7 +77,11 @@ const Socials = () => {
                       {link.name}
                     </p>
                   </>
-                ) : null}
+                ) : (
+                  <QuestionMark>
+                    <img src={brickImage} alt="bricks" />
+                  </QuestionMark>
+                )}
               </InnerBox>
             </Box>
           );
