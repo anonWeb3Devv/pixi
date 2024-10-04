@@ -11,12 +11,12 @@ export const LandingContainer = styled.div`
   overflow: hidden;
   padding-inline: 8px;
   margin-inline: auto;
-  background-image: linear-gradient(
+  background-image: 
+  /* linear-gradient(
       to bottom,
       rgba(255, 255, 255, 0) 80%,
       #ffffff
-    ),
-    url("/assets/pixi-bg.png");
+    ), */ url("/assets/pixi-bg.png");
   background-size: cover;
   background-repeat: no-repeat;
 

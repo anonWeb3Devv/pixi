@@ -114,6 +114,21 @@ export const PixiTopLeftImgContainer = styled.div`
   left: 100px;
   z-index: -1;
   opacity: 0.6;
+
+  /* Animation */
+  animation: moveLeftRight 4s ease-in-out infinite;
+
+  @keyframes moveLeftRight {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(7px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
 `;
 
 export const PixiTopLeftImg = styled.img`
@@ -148,6 +163,20 @@ export const PixiBottomRightImgContainer = styled.div`
   height: 400px;
   width: 400px;
   z-index: -1;
+
+  animation: moveUpDown 4s ease-in-out infinite;
+
+  @keyframes moveUpDown {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
 `;
 
 export const PixiBottomRightImg = styled.img`
@@ -167,6 +196,20 @@ export const PixiBottomLeftImgContainer = styled.div`
   bottom: 0;
   left: -100px;
   z-index: -1;
+
+  animation: moveUpDown 4s ease-in-out infinite;
+
+  @keyframes moveUpDown {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
 `;
 
 export const PixiBottomLeftImg = styled.img`
