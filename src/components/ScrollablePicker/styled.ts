@@ -27,11 +27,11 @@ export const PreviewImage = styled.img`
   margin-right: 10px;
   cursor: pointer;
   border-radius: 10px;
-  transition: transform 0.3s;
+  /* transition: transform 0.3s; */
   border: 2px dashed white;
 
-  &:hover {
+  /* &:hover {
     transform: scale(1.2);
     border: 2px solid #ccc;
-  }
+  } */
 `;
