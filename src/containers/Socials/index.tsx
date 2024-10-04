@@ -7,8 +7,8 @@ import {
   QuestionMark,
   Subtitle,
 } from "./styled";
-import blockImage from "../../assets/block.png";
-import brickImage from "../../assets/brick.jpg";
+import blockImage from "/assets/block.png";
+import brickImage from "/assets/brick.png";
 import { useState } from "react";
 import useStore from "../../store/useStore";
 

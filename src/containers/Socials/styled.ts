@@ -100,7 +100,7 @@ export const Box = styled.div<BoxProps>`
   position: relative;
 
   background-image: ${(props) =>
-    !props.$questionmark ? "none" : "url(src/assets/brick.jpg)"};
+    !props.$questionmark ? "none" : "url(/assets/brick.png)"};
   background-size: cover;
   background-position: center;
   @media ${mobileFirst.xs} {
