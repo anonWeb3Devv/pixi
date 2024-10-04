@@ -14,6 +14,7 @@ export const GeneratorWrapper = styled.div`
   align-items: center;
   width: 80%;
   margin: 0 auto;
+  padding-bottom: 20px;
   font-family: "Handjet-Regular", sans-serif;
 `;
 

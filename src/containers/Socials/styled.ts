@@ -105,8 +105,7 @@ export const Box = styled.div<BoxProps>`
 export const QuestionMark = styled.div`
   border-radius: 10px;
   overflow: hidden;
-
-  cursor: pointer;
+  pointer-events: none;
   
 `;
 
@@ -124,21 +123,27 @@ export const InnerBox = styled.div<BoxProps>`
   right: 10%;
   bottom: 10%;
 
-  a {
+  p {
     color: white;
     text-decoration: none;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: opacity 1s;
+    transition: opacity 0.4s;
     opacity: 0;
+    padding: 10px;
     cursor: pointer;
+    font-size: 12px;
+
+    @media ${mobileFirst.xs} {
+    font-size: 18px;
+  }
   }
 
   ${props => props.questionmark && `
     ${Box}:hover & {
-      a {
+      p {
         opacity: 1; // Show link when questionMark is present
       }
       ${QuestionMark} {

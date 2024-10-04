@@ -8,10 +8,11 @@ import {
   Subtitle,
 } from "./styled";
 import blockImage from "../../assets/block.png";
-
+import { useState } from "react";
+import useStore from "../../store/useStore";
 const Socials = () => {
   const boxes = Array.from({ length: 9 }, (_, index) => index + 1);
-
+  const { isMobile } = useStore();
   const links = [
     { id: 1, name: "Facebook", url: "https://facebook.com" },
     { id: 2, name: "Twitter", url: "https://twitter.com" },
@@ -23,6 +24,21 @@ const Socials = () => {
     { id: 8, name: "Pinterest", url: "https://pinterest.com" },
     { id: 9, name: "Reddit", url: "https://reddit.com" },
   ];
+
+  const [revealedIndex, setRevealedIndex] = useState<number | null>(null);
+
+  const handleClick = (index: number, url: string) => {
+    if (isMobile) {
+      if (revealedIndex === index) {
+        window.open(url, "_blank");
+      } else {
+        setRevealedIndex(index); // Reveal the link
+      }
+    } else {
+      setRevealedIndex(index);
+      window.open(url, "_blank");
+    }
+  };
 
   return (
     <MainWrapper id="social">
@@ -41,14 +57,23 @@ const Socials = () => {
                     <QuestionMark>
                       <img src={blockImage} alt="block"></img>
                     </QuestionMark>
-                    <a
+                    {/* <a
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="link"
                     >
                       {link.name}
-                    </a>
+                    </a> */}
+                    <p
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleClick(index, link.url);
+                      }}
+                      className="link"
+                    >
+                      {link.name}
+                    </p>
                   </>
                 ) : null}
               </InnerBox>
