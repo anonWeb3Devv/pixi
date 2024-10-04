@@ -39,7 +39,7 @@ export function MobileNav({
           to="/"
           onClick={() => {
             setIsMobileNavOpen(false);
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo(0, 0); // Scroll to top
           }}
         >
           Home

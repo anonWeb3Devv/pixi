@@ -3,9 +3,16 @@ import { theme } from "../../styles/theme";
 import { mobileFirst } from "../../constants/breakpoints";
 
 export const Title = styled.h1`
-  font-size: 70px;
+  font-size: 80px;
   margin: 30px 0 20px 0;
   line-height: 70px;
+  margin: 120px 0 55px 0;
+
+  text-transform: uppercase;
+
+  @media screen and (max-width: 768px) {
+    font-size: 50px;
+  }
 `;
 
 export const GeneratorWrapper = styled.div`
@@ -63,7 +70,7 @@ export const StyledButton = styled.button`
   transition: background-color 0.3s ease;
   text-transform: uppercase;
   font-family: "Handjet-Regular";
-line-height: 100%;
+  line-height: 100%;
   &:hover {
     background-color: #7098ff;
   }

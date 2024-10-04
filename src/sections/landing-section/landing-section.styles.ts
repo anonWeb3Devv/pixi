@@ -11,6 +11,7 @@ export const LandingContainer = styled.div`
   overflow: hidden;
   padding-inline: 8px;
   margin-inline: auto;
+  background-color: #a0b4f9;
   background-image: 
   /* linear-gradient(
       to bottom,
@@ -19,9 +20,11 @@ export const LandingContainer = styled.div`
     ), */ url("/assets/pixi-bg.png");
   background-size: cover;
   background-repeat: no-repeat;
+  /* background-position-y: -20px; */
 
   @media screen and (max-width: 768px) {
-    background-position-x: 90%;
+    background-position-x: 88%;
+    background-position-y: 100px;
     background-size: cover;
   }
 `;
@@ -45,7 +48,7 @@ export const LandingHeading = styled.h1`
 
   @media ${mobileFirst.md} {
     font-size: 60px;
-    width: 40%; // Adjust the width for medium screens
+    width: 55%; // Adjust the width for medium screens
   }
 
   @media (max-width: 768px) {
