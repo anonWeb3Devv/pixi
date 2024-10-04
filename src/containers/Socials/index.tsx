@@ -7,6 +7,7 @@ import {
   QuestionMark,
   Subtitle,
 } from "./styled";
+import blockImage from "../../assets/block.png";
 
 const Socials = () => {
   const boxes = Array.from({ length: 9 }, (_, index) => index + 1);
@@ -14,10 +15,10 @@ const Socials = () => {
   const links = [
     { id: 1, name: "Facebook", url: "https://facebook.com" },
     { id: 2, name: "Twitter", url: "https://twitter.com" },
-    { id: 3, name: "Instagram", url: "https://instagram.com" },
+    { id: 3, name: "Telegram", url: "https://t.me/pixisol" },
     { id: 4, name: "LinkedIn", url: "https://linkedin.com" },
     { id: 5, name: "Snapchat", url: "https://snapchat.com" },
-    { id: 6, name: "TikTok", url: "https://tiktok.com" },
+    { id: 6, name: "X", url: "https://x.com/pixisolana?s=21" },
     { id: 7, name: "YouTube", url: "https://youtube.com" },
     { id: 8, name: "Pinterest", url: "https://pinterest.com" },
     { id: 9, name: "Reddit", url: "https://reddit.com" },
@@ -33,9 +34,9 @@ const Socials = () => {
           return (
             <Box key={box} questionMark={index % 2 !== 0}>
               <InnerBox>
-                {link && index % 2 !== 0 ? (
+                {link && (index === 2 || index === 5) ? (
                   <>
-                    <QuestionMark>?</QuestionMark>
+                    <img src={blockImage} alt="block"></img>
                     <a
                       href={link.url}
                       target="_blank"

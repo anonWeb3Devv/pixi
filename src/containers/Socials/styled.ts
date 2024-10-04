@@ -8,6 +8,7 @@ interface BoxProps {
 export const MainWrapper = styled.main`
   width: 80%;
   margin: 0 auto;
+  font-family: "Handjet-Regular",sans-serif;
 `;
 
 export const Title = styled.h1`
