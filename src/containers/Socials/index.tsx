@@ -32,11 +32,15 @@ const Socials = () => {
         {boxes.map((box, index) => {
           const link = links[index];
           return (
-            <Box key={box} questionMark={index % 2 !== 0}>
-              <InnerBox>
+            <Box key={box}>
+              <InnerBox
+                questionmark={index === 2 || index === 5 ? true : false}
+              >
                 {link && (index === 2 || index === 5) ? (
                   <>
-                    <img src={blockImage} alt="block"></img>
+                    <QuestionMark>
+                      <img src={blockImage} alt="block"></img>
+                    </QuestionMark>
                     <a
                       href={link.url}
                       target="_blank"

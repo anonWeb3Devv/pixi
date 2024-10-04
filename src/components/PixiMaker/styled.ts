@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { theme } from "../../styles/theme";
+import { mobileFirst } from "../../constants/breakpoints";
 
 export const Title = styled.h1`
   font-size: 70px;
-  margin: 60px 0;
-  font-family: "Handjet-Regular";
-  text-transform: uppercase;
+  margin: 30px 0 20px 0;
+  line-height: 70px;
 `;
 
 export const GeneratorWrapper = styled.div`
@@ -14,6 +14,7 @@ export const GeneratorWrapper = styled.div`
   align-items: center;
   width: 80%;
   margin: 0 auto;
+  font-family: "Handjet-Regular", sans-serif;
 `;
 
 export const PreviewWrapper = styled.div`
@@ -23,24 +24,32 @@ export const PreviewWrapper = styled.div`
 
 export const CustomizationSection = styled.div`
   width: 100%;
-  padding: 20px 0;
+  font-family: "Handjet-Regular", sans-serif;
+
+  @media ${mobileFirst.xs} {
+    padding: 20px 0;
+  }
 `;
 
 export const CategoryHeading = styled.h4`
-  margin: 20px auto 20px auto;
+  margin: 10px auto 10px auto;
   width: 100%;
   text-align: center;
-  font-size: 20px;
+  font-size: 16px;
   text-transform: uppercase;
-  font-family: "Handjet-Regular";
+
+  @media ${mobileFirst.xs} {
+    font-size: 20px;
+    margin: 20px auto 20px auto;
+  }
 `;
 
 export const StyledButton = styled.button`
   background-color: ${theme.colors.secondary};
   border: none;
   border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
+  font-size: 12px;
+  padding: 6px 12px;
   color: #333;
   cursor: pointer;
   margin: 10px 0;
@@ -53,6 +62,11 @@ export const StyledButton = styled.button`
   &:hover {
     background-color: #7098ff;
   }
+
+  @media ${mobileFirst.xs} {
+    padding: 12px 20px;
+    font-size: 16px;
+  }
 `;
 
 export const StyledInput = styled.input`
@@ -62,8 +76,9 @@ export const StyledInput = styled.input`
 export const LabelButton = styled.label`
   background-color: ${theme.colors.secondary};
   border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
+
+  font-size: 12px;
+  padding: 6px 12px;
   color: #333;
   cursor: pointer;
   margin: 10px 0;
@@ -77,10 +92,16 @@ export const LabelButton = styled.label`
   &:hover {
     background-color: #7098ff;
   }
+
+  @media ${mobileFirst.xs} {
+    padding: 12px 20px;
+    font-size: 16px;
+  }
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 20px;
+  align-items: center;
 `;

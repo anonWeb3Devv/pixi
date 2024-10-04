@@ -1,14 +1,14 @@
-// SocialsStyles.js
 import styled from "styled-components";
+import { mobileFirst } from "../../constants/breakpoints";
 
 interface BoxProps {
-  questionMark: boolean;
+  questionmark?: boolean;
 }
 
 export const MainWrapper = styled.main`
   width: 80%;
   margin: 0 auto;
-  font-family: "Handjet-Regular",sans-serif;
+  font-family: "Handjet-Regular", sans-serif;
 `;
 
 export const Title = styled.h1`
@@ -32,7 +32,7 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-auto-rows: 1fr;
-  margin: 20px;
+  margin-bottom: 30px;
   position: relative;
 
   // Position the boxes
@@ -88,23 +88,27 @@ export const Box = styled.div<BoxProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 10px;
   font-size: 24px;
   width: 100%;
   height: 0;
   padding-top: 100%;
   border: 1px solid black;
   position: relative;
+  @media ${mobileFirst.xs} {
+    border-radius: 15px;
+  }
+
 `;
+
 
 export const QuestionMark = styled.div`
-  font-size: 48px;
-  color: #fff;
-  cursor: pointer;
-  background-image: url("/unknownBlock.png");
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;  
 `;
 
-export const InnerBox = styled.div`
+export const InnerBox = styled.div<BoxProps>`
   background-color: #67532d;
   border-radius: 15px;
   width: 80%;
@@ -130,13 +134,16 @@ export const InnerBox = styled.div`
     cursor: pointer;
   }
 
-  ${Box}:hover & {
-    a {
-      opacity: 1;
+  ${props => props.questionmark && `
+    ${Box}:hover & {
+      a {
+        opacity: 1; // Show link when questionMark is present
+      }
+      ${QuestionMark} {
+        opacity: 0; // Hide question mark when hovered
+        transition: opacity 0.7s;
+      }
     }
-    ${QuestionMark} {
-      opacity: 0;
-      transition: opacity 1s;
-    }
-  }
+  `}
+
 `;
