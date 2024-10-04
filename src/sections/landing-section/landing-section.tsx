@@ -8,7 +8,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useState } from "react";
 import { DATA } from "../../data";
 import useSound from "use-sound";
-import click from "../../assets/sounds/clickSound.mp3";
+import click from "/assets/sounds/clickSound.mp3";
 
 type LandingSectionProps = {
   isOverlayOpen: boolean;
