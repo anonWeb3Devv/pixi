@@ -105,7 +105,9 @@ export const Box = styled.div<BoxProps>`
 export const QuestionMark = styled.div`
   border-radius: 10px;
   overflow: hidden;
-  cursor: pointer;  
+
+  cursor: pointer;
+  
 `;
 
 export const InnerBox = styled.div<BoxProps>`

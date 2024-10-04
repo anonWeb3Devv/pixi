@@ -8,12 +8,12 @@ import { Link as RouterLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { MobileNav } from "../Mobile-Nav";
 import { HashLink } from "react-router-hash-link";
+import useStore from "../../store/useStore";
 
 export function Header() {
+  const { isMobile, setIsMobile } = useStore();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   // const [isVisible, setIsVisible] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
   const [isScrolling, setIsScrolling] = useState(false);
 
   function scrollToTop() {
