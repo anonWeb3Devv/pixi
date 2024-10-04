@@ -1,5 +1,9 @@
 @import "./fonts.css";
 
+/* body {
+  background: #a0b4f9;
+} */
+
 *,
 *::before,
 *::after {
@@ -45,9 +49,22 @@ h6 {
 
 html,
 body {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif,
-    dot-gothic-16, Handjet-Light, Handjet-Medium, Handjet-Regular,
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    Fira Sans,
+    Droid Sans,
+    Helvetica Neue,
+    sans-serif,
+    dot-gothic-16,
+    Handjet-Light,
+    Handjet-Medium,
+    Handjet-Regular,
     Handjet-SemiBold;
   scroll-behavior: smooth;
 }

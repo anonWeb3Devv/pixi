@@ -10,6 +10,7 @@ import { useData } from "./use-data";
 import { useObstacle } from "./use-obstacle";
 import { LeaderBoard } from "./leaderboard";
 import styled from "styled-components";
+import { useAppContext } from "../../context/app-context";
 
 const PLAYER_HEIGHT = 60;
 const PLAYER_WIDTH = 40;
@@ -25,6 +26,7 @@ const GROUND_LEVEL = 3;
 const FALL_SPEED = 6;
 
 export function Dino() {
+  const { setIsOverlayOpen } = useAppContext();
   const intervalRef = useRef<number | null>(null);
 
   const [scenarioPosition, setScenarioPosition] = useState(0);
@@ -42,6 +44,11 @@ export function Dino() {
   });
 
   useData({ isGameOver, score });
+
+  useEffect(() => {
+    setIsOverlayOpen(false);
+    document.body.style.overflow = "auto";
+  }, [setIsOverlayOpen]);
 
   const resetGame = useCallback(() => {
     setScenarioPosition(0);
@@ -131,7 +138,7 @@ export function Dino() {
   }, [gameLoop, handleKeyDown, isRunning]);
 
   return (
-    <PixiRunnerWrapper onClick={handleKeyDown}>
+    <PixiRunnerWrapper onClick={handleKeyDown} id="pixi-runner">
       <Heading>PIXI RUNNER</Heading>
 
       <div

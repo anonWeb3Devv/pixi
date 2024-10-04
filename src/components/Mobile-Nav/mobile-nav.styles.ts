@@ -4,8 +4,8 @@ export const MobileNavContainer = styled.div<{
   $isOpen: boolean;
 }>`
   position: fixed;
-  z-index: 1000;
-  background: #1a291e;
+  z-index: 10000000000000;
+  background: #a0b4f9;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +20,7 @@ export const MobileNavContainer = styled.div<{
 `;
 
 export const MobileNavMenuItem = styled.button`
-  font-family: "Handjet-Light";
+  font-family: "Handjet-Regular";
   font-size: 55px;
   border: none;
   background: none;

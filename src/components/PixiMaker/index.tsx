@@ -33,6 +33,7 @@ import {
   Customization,
   exportImage,
 } from "./handlers";
+import { useAppContext } from "../../context/app-context";
 
 const PixiMaker = () => {
   const defaultCustomization: Customization = {
@@ -47,6 +48,7 @@ const PixiMaker = () => {
     petOptions: null,
   };
 
+  const { setIsOverlayOpen } = useAppContext();
   const [customization, setCustomization] =
     useState<Customization>(defaultCustomization);
 
@@ -56,6 +58,11 @@ const PixiMaker = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ffmpegRef = useRef(new FFmpeg());
   const messageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsOverlayOpen(false);
+    document.body.style.overflow = "auto";
+  }, [setIsOverlayOpen]);
 
   const loadFFmpeg = async () => {
     const baseURL = "https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm";
@@ -207,7 +214,7 @@ const PixiMaker = () => {
   };
 
   return (
-    <GeneratorWrapper>
+    <GeneratorWrapper id="pixi-maker">
       <Title>Pixi Maker</Title>
       <PreviewWrapper>
         <canvas ref={canvasRef} width="600" height="600"></canvas>

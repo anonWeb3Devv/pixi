@@ -47,13 +47,15 @@ export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
+  z-index: 1;
+  gap: 10px;
 
   > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 10px;
   }
-  gap: 10px;
 
   /* margin-bottom: -60%; */
 
@@ -98,14 +100,14 @@ export const Grid = styled.div`
   }
 
   & :nth-child(7) {
-    grid-column: span 1;
+    grid-column: span 2;
     grid-row: span 1;
   }
-
+  /* 
   & :nth-child(8) {
     grid-column: span 1;
     grid-row: span 1;
-  }
+  } */
 
   /* @media ${mobileFirst.sm} {
     grid-template-columns: repeat(3, 1fr);

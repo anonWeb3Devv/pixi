@@ -9,12 +9,11 @@ export const Navigation = styled.ul<{ $isScrolling: boolean }>`
   position: fixed;
   top: 0px;
   width: 100%;
-  z-index: 102;
+  z-index: 300000000;
   /* margin-top: 20px; */
 
   transition: background-color 0.5s ease;
   background-color: transparent;
-
 
   @media ${mobileFirst.sm} {
     padding: 20px 60px;

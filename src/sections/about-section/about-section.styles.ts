@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { mobileFirst } from "../../constants/breakpoints";
 
-export const LorePageContainer = styled.div`
+export const LorePageContainer = styled.section`
   /* padding: 0 20px; */
   /* display: flex; */
   /* flex-direction: column-reverse; */
@@ -30,7 +30,7 @@ export const Container = styled.div`
   flex-direction: column-reverse;
   min-height: 100svh;
   align-items: center;
-  gap: 30px;
+  gap: 142px;
   justify-content: center;
   max-width: 1220px;
   width: 80%;

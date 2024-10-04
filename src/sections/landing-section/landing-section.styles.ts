@@ -10,29 +10,50 @@ export const LandingContainer = styled.div`
   position: relative;
   overflow: hidden;
   padding-inline: 8px;
-  /* max-width: 1220px; */
   margin-inline: auto;
-
-  background-image: url("/assets/pixi-bg.png");
+  background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 80%,
+      #ffffff
+    ),
+    url("/assets/pixi-bg.png");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 30%;
+
+  @media screen and (max-width: 768px) {
+    background-position-x: 90%;
+    background-size: cover;
+  }
 `;
 
 export const LandingHeading = styled.h1`
-  margin-bottom: 50px;
-  font-family: "Handjet-Light";
-  /* margin-top: 80px; */
+  margin-bottom: 100px;
+  font-family: "Handjet-SemiBold";
   text-align: center;
   color: #fff;
   text-transform: uppercase;
   font-size: 25px;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 950px;
+  border-radius: 10px;
+  border: #fff dotted;
 
   @media ${mobileFirst.sm} {
     font-size: 50px;
+    width: 80%; // Adjust the width for small screens
   }
+
   @media ${mobileFirst.md} {
     font-size: 60px;
+    width: 40%; // Adjust the width for medium screens
+  }
+
+  @media (max-width: 768px) {
+    width: 90%; // Adjust the width for mobile screens
+  }
+
+  @media (max-width: 480px) {
+    width: 75%; // Further decrease width for very small screens
   }
 `;
 
@@ -43,7 +64,7 @@ export const LandingHintText = styled.span`
 
   font-size: 15px;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   border: #fff dotted;
   padding: 10px 15px;
