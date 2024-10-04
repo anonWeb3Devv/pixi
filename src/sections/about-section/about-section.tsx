@@ -28,10 +28,9 @@ export function AboutSection() {
         <LorePageTextContainer>
           <Heading>the pixiverse</Heading>
           <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum in
-            doloribus vero, atque placeat recusandae optio exercitationem alias
-            illo autem, quam beatae. Beatae, deleniti error. Repellendus labore
-            quis veniam iusto.
+            Pixi is a pixelated cat on Solana, a customizable character managed
+            by the entire community. It's an IP with its own drawings,
+            animations, and story.
           </Text>
         </LorePageTextContainer>
 
