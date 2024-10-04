@@ -13,9 +13,13 @@ export const GeneratorWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 80%;
-  margin: 0 auto;
+  margin: 60px auto 0 auto;
   padding-bottom: 20px;
   font-family: "Handjet-Regular", sans-serif;
+
+  @media ${mobileFirst.xs} {
+    margin: 0 auto;
+  }
 `;
 
 export const PreviewWrapper = styled.div`
@@ -49,7 +53,7 @@ export const StyledButton = styled.button`
   background-color: ${theme.colors.secondary};
   border: none;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 10px;
   padding: 6px 12px;
   color: #333;
   cursor: pointer;
@@ -59,7 +63,7 @@ export const StyledButton = styled.button`
   transition: background-color 0.3s ease;
   text-transform: uppercase;
   font-family: "Handjet-Regular";
-
+line-height: 100%;
   &:hover {
     background-color: #7098ff;
   }
@@ -77,8 +81,7 @@ export const StyledInput = styled.input`
 export const LabelButton = styled.label`
   background-color: ${theme.colors.secondary};
   border-radius: 5px;
-
-  font-size: 12px;
+  font-size: 10px;
   padding: 6px 12px;
   color: #333;
   cursor: pointer;
@@ -89,6 +92,7 @@ export const LabelButton = styled.label`
   transition: background-color 0.3s ease;
   text-transform: uppercase;
   font-family: "Handjet-Regular";
+  line-height: 100%;
 
   &:hover {
     background-color: #7098ff;
@@ -103,6 +107,10 @@ export const LabelButton = styled.label`
 export const ButtonContainer = styled.div`
   display: flex;
   width: 100%;
-  gap: 20px;
+  gap: 10px;
   align-items: center;
+
+  @media ${mobileFirst.xs} {
+    gap: 20px;
+  }
 `;
