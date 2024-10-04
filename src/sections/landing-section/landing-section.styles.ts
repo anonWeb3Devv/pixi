@@ -11,6 +11,7 @@ export const LandingContainer = styled.div`
   overflow: hidden;
   padding-inline: 8px;
   margin-inline: auto;
+  background-color: #a0b4f9;
   background-image: 
   /* linear-gradient(
       to bottom,
@@ -21,7 +22,8 @@ export const LandingContainer = styled.div`
   background-repeat: no-repeat;
 
   @media screen and (max-width: 768px) {
-    background-position-x: 90%;
+    background-position-x: 88%;
+    background-position-y: 100px;
     background-size: cover;
   }
 `;
