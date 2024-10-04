@@ -35,7 +35,13 @@ export function MobileNav({
         </svg>
       </MobileNavClose>
       <MobileNavMenuItem>
-        <HashLink to="/" onClick={() => setIsMobileNavOpen(false)}>
+        <HashLink
+          to="/"
+          onClick={() => {
+            setIsMobileNavOpen(false);
+            window.scrollTo(0, 0); // Scroll to top
+          }}
+        >
           Home
         </HashLink>
       </MobileNavMenuItem>

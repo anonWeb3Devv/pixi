@@ -58,10 +58,6 @@ export const LandingHeading = styled.h1`
   @media (max-width: 480px) {
     width: 75%; // Further decrease width for very small screens
   }
-
-  @media (min-width: 1240px) {
-    width: 50%;
-  }
 `;
 
 export const LandingHintText = styled.span`
