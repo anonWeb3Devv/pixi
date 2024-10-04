@@ -50,7 +50,7 @@ const Socials = () => {
           return (
             <Box key={box}>
               <InnerBox
-                questionmark={index === 2 || index === 5 ? true : false}
+                $questionmark={index === 2 || index === 5 ? true : false}
               >
                 {link && (index === 2 || index === 5) ? (
                   <>

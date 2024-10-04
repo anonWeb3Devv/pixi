@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { mobileFirst } from "../../constants/breakpoints";
 
 interface BoxProps {
-  questionmark?: boolean;
+  $questionmark?: boolean;
 }
 
 export const MainWrapper = styled.main`
@@ -141,7 +141,7 @@ export const InnerBox = styled.div<BoxProps>`
   }
   }
 
-  ${props => props.questionmark && `
+  ${props => props.$questionmark && `
     ${Box}:hover & {
       p {
         opacity: 1; // Show link when questionMark is present
