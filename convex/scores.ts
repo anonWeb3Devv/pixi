@@ -15,9 +15,10 @@ export const get = query({
 export const add = mutation({
   args: {
     score: v.number(),
+    name: v.string(),
   },
   handler: async (ctx, args) => {
-    const { score } = args;
+    const { score, name } = args;
 
     const existing = await ctx.db
       .query("scores")
@@ -28,7 +29,7 @@ export const add = mutation({
       return { score: existing.score };
     }
 
-    await ctx.db.insert("scores", { score });
+    await ctx.db.insert("scores", { score, name });
     return { score };
   },
 });

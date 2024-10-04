@@ -4,5 +4,8 @@ import { v } from "convex/values";
 export default defineSchema({
   scores: defineTable({
     score: v.number(),
-  }).index("by_score", ["score"]),
+    name: v.string(),
+  })
+    .index("by_score", ["score"])
+    .index("by_name", ["name"]),
 });
