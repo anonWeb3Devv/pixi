@@ -19,6 +19,14 @@ const LeaderBoardWrapper = styled.div`
 
     > li {
       margin-top: -10px;
+
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px;
+
+      > span:nth-child(1) {
+        text-align: right;
+      }
     }
   }
 `;
@@ -30,13 +38,9 @@ export function LeaderBoard() {
     <LeaderBoardWrapper>
       <h3>Leaderboard</h3>
       <ul>
-        {/* {leaderboard.map((leader) => (
-      <li key={leader.id}>
-        <span>{leader.score}</span>
-      </li>
-    ))} */}
         {data?.map((score) => (
           <li key={score._id}>
+            <span>{score.name} : </span>
             <span>{score.score}</span>
           </li>
         ))}

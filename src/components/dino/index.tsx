@@ -37,13 +37,16 @@ export function Dino() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [gameSpeed, setGameSpeed] = useState(GAME_SPEED);
+  const [canStart, setCanStart] = useState(false);
 
   const { obstacles, setObstacles } = useObstacle({
     isRunning,
     score,
   });
 
-  useData({ isGameOver, score });
+  const [name, setName] = useState("");
+
+  useData({ isGameOver, score, name });
 
   useEffect(() => {
     setIsOverlayOpen(false);
@@ -60,9 +63,12 @@ export function Dino() {
     setObstacles([]);
     setGameSpeed(GAME_SPEED);
     setScore(0);
+    setCanStart(false);
   }, [setObstacles]);
 
   const handleKeyDown = useCallback(() => {
+    if (!canStart) return;
+
     if (isGameOver) {
       resetGame();
       return;
@@ -76,7 +82,7 @@ export function Dino() {
     if (!isJumping) {
       setIsJumping(true);
     }
-  }, [isGameOver, isJumping, isRunning, resetGame]);
+  }, [canStart, isGameOver, isJumping, isRunning, resetGame]);
 
   const gameLoop = useCallback(() => {
     setScenarioPosition((prev) => prev + gameSpeed);
@@ -152,7 +158,15 @@ export function Dino() {
       >
         {!isRunning && <Backdrop />}
 
-        {!isRunning && !isGameOver && <StartScreen />}
+        {!isRunning && !isGameOver && (
+          <StartScreen
+            onStart={(name) => {
+              setCanStart(true);
+              setName(name);
+              setIsRunning(true);
+            }}
+          />
+        )}
 
         {isGameOver && <GameOverScreen score={score} />}
 
@@ -197,4 +211,5 @@ const PixiRunnerWrapper = styled.div`
   margin-inline: auto;
   max-width: 1220px;
   width: 80%;
+  padding-top: 100px;
 `;

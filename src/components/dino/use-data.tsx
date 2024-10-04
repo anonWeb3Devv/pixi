@@ -5,13 +5,14 @@ import { api } from "../../../convex/_generated/api";
 type Data = {
   score: number;
   isGameOver: boolean;
+  name: string;
 };
 
-export function useData({ isGameOver, score }: Data) {
+export function useData({ isGameOver, score, name }: Data) {
   const save = useMutation(api.scores.add);
   useEffect(() => {
     if (!isGameOver) return;
 
-    save({ score });
-  }, [isGameOver, save, score]);
+    save({ score, name });
+  }, [isGameOver, name, save, score]);
 }
