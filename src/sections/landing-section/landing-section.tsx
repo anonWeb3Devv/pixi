@@ -1,6 +1,6 @@
 import {
   LandingContainer,
-  // LandingHeading,
+  LandingHeading,
   LandingHintText,
 } from "./landing-section.styles";
 import { Overlay } from "../../components/Overlay";
@@ -50,9 +50,7 @@ export function LandingSection({
           </LandingHintText>
         </CopyToClipboard>
 
-        {/* <LandingHeading>
-          The first pixelated cat meme coin on solana
-        </LandingHeading> */}
+        {/* <LandingHeading>The pixelated cat of solana</LandingHeading> */}
       </LandingContainer>
     </>
   );

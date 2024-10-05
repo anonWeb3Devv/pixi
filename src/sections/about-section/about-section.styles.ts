@@ -2,34 +2,25 @@ import styled from "styled-components";
 import { mobileFirst } from "../../constants/breakpoints";
 
 export const LorePageContainer = styled.section`
-  /* padding: 0 20px; */
-  /* display: flex; */
-  /* flex-direction: column-reverse; */
-  /* align-items: center; */
-  /* gap: 30px; */
-  /* justify-content: center; */
-  /* max-width: 1220px; */
-  /* margin-inline: auto; */
-  /* display: grid; */
-  /* grid-template-columns: repeat(12, 1fr); */
-  /* align-items: center; */
-  min-height: 100svh;
+  max-height: 100svh;
   position: relative;
-  /* overflow: hidden; */
   overflow-y: visible;
   overflow-x: clip;
   padding-bottom: 100px;
   min-width: 100svw;
+
+  /* Set the linear gradient background */
+  background: linear-gradient(to bottom, #a0b4f9, #cedcff);
 `;
 
 export const Container = styled.div`
   /* padding: 0 20px; */
-  margin-top: 100px;
+  /* margin-top: 100px; */
   display: flex;
-  flex-direction: column-reverse;
+  /* flex-direction: column-reverse; */
   min-height: 100svh;
   align-items: center;
-  gap: 142px;
+  /* gap: 142px; */
   justify-content: center;
   max-width: 1220px;
   width: 80%;
@@ -55,7 +46,8 @@ export const LorePageTextContainer = styled.div`
   /* margin-left: 400px; */
 
   @media ${mobileFirst.sm} {
-    text-align: left;
+    text-align: center;
+    /* margin-bottom: 50%; */
   }
 `;
 

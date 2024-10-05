@@ -1,5 +1,5 @@
 import {
-  Text,
+  // Text,
   LorePageContainer,
   LorePageTextContainer,
   PixiMainImage,
@@ -13,6 +13,7 @@ import {
   PixiBottomRightImgContainer,
   PixiBottomRightImg,
   Container,
+  Heading,
 } from "./about-section.styles";
 import pixiMain from "/assets/pixiMain.png";
 import pixiTopRight from "/assets/pixiZen.png";
@@ -25,17 +26,17 @@ export function AboutSection() {
     <LorePageContainer id="about">
       <Container>
         <LorePageTextContainer>
-          {/* <Heading>the pixelated cat of solana</Heading> */}
-          <Text>The pixelated cat of solana.</Text>
+          <Heading>the pixelated cat of solana</Heading>
+          {/* <Text>The pixelated cat of solana.</Text> */}
         </LorePageTextContainer>
-
+        {/* 
         <PixiImageMainContainer>
           <PixiMainImage src={pixiMain} />
-        </PixiImageMainContainer>
+        </PixiImageMainContainer> */}
       </Container>
 
       {/* Image Containers */}
-      <PixiTopLeftImgContainer>
+      {/* <PixiTopLeftImgContainer>
         <PixiTopLeftImg src={pixiTopLeft} />
       </PixiTopLeftImgContainer>
       <PixiTopRightImgContainer>
@@ -46,7 +47,7 @@ export function AboutSection() {
       </PixiBottomLeftImgContainer>
       <PixiBottomRightImgContainer>
         <PixiBottomRightImg src={pixiBottomRight} />
-      </PixiBottomRightImgContainer>
+      </PixiBottomRightImgContainer> */}
     </LorePageContainer>
   );
 }

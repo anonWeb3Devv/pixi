@@ -21,7 +21,7 @@ export const Navigation = styled.ul<{ $isScrolling: boolean }>`
 
   @media ${mobileFirst.sm} {
     background-color: ${(props) =>
-      props.$isScrolling ? "rgba(255, 255, 255, 0.8)" : "transparent"};
+      props.$isScrolling ? "rgba(194, 211, 252, 0.8)" : "transparent"};
   }
 `;
 

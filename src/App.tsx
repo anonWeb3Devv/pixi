@@ -3,6 +3,7 @@ import { AboutSection } from "./sections/about-section";
 import { MemeSection } from "./sections/memes-section";
 import Socials from "./containers/Socials";
 import { useAppContext } from "./context/app-context";
+import { MemesBackground } from "./components/MemesBackground";
 
 function App() {
   const { isOverlayOpen, setIsOverlayOpen } = useAppContext();
@@ -16,7 +17,9 @@ function App() {
         setIsOverlayOpen={setIsOverlayOpen}
       />
 
-      <AboutSection />
+      <MemesBackground>
+        <AboutSection />
+      </MemesBackground>
 
       {/* <MemesBackground> */}
       <MemeSection />
