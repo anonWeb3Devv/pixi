@@ -59,7 +59,7 @@ export const CategoryHeading = styled.h4`
 export const StyledButton = styled.button`
   background-color: ${theme.colors.secondary};
   border: none;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   font-size: 10px;
   padding: 6px 12px;
   color: #333;
@@ -87,7 +87,7 @@ export const StyledInput = styled.input`
 
 export const LabelButton = styled.label`
   background-color: ${theme.colors.secondary};
-  border-radius: 5px;
+  /* border-radius: 5px; */
   font-size: 10px;
   padding: 6px 12px;
   color: #333;

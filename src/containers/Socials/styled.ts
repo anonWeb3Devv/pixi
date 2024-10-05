@@ -91,7 +91,7 @@ export const Box = styled.div<BoxProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   font-size: 24px;
   width: 100%;
   height: 0;
@@ -104,19 +104,19 @@ export const Box = styled.div<BoxProps>`
   background-size: cover;
   background-position: center;
   @media ${mobileFirst.xs} {
-    border-radius: 15px;
+    /* border-radius: 15px; */
   }
 `;
 
 export const QuestionMark = styled.div`
-  border-radius: 10px;
+  /* border-radius: 10px; */
   overflow: hidden;
   pointer-events: none;
 `;
 
 export const InnerBox = styled.div<BoxProps>`
   background-color: #67532d;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   width: ${(props) => (props.$questionmark ? "80%" : "100%")};
   height: ${(props) => (props.$questionmark ? "80%" : "100%")};
   display: flex;

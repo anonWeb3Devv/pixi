@@ -1,6 +1,5 @@
 import {
   Text,
-  Heading,
   LorePageContainer,
   LorePageTextContainer,
   PixiMainImage,
@@ -26,12 +25,8 @@ export function AboutSection() {
     <LorePageContainer id="about">
       <Container>
         <LorePageTextContainer>
-          <Heading>the pixiverse</Heading>
-          <Text>
-            Pixi is a pixelated cat on Solana, a customizable character managed
-            by the entire community. It's an IP with its own drawings,
-            animations, and story.
-          </Text>
+          {/* <Heading>the pixelated cat of solana</Heading> */}
+          <Text>The pixelated cat of solana.</Text>
         </LorePageTextContainer>
 
         <PixiImageMainContainer>

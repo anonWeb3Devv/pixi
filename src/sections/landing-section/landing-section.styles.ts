@@ -23,7 +23,7 @@ export const LandingContainer = styled.div`
   /* background-position-y: -20px; */
 
   @media screen and (max-width: 768px) {
-    background-position-x: 88%;
+    background-position-x: 86%;
     background-position-y: 100px;
     background-size: cover;
   }
@@ -38,7 +38,7 @@ export const LandingHeading = styled.h1`
   font-size: 25px;
   background-color: rgba(0, 0, 0, 0.4);
   width: 950px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   border: #fff dotted;
 
   @media ${mobileFirst.sm} {
@@ -64,20 +64,30 @@ export const LandingHintText = styled.span`
   font-family: "Handjet-Light";
   margin-bottom: 40px;
   text-align: center;
-
-  font-size: 15px;
+  font-size: 80px;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
+  margin-bottom: 50px;
+  background-color: rgba(0, 0, 0, 0.7);
+  /* border-radius: 10px; */
   border: #fff dotted;
   padding: 10px 15px;
   color: #fff;
 
   @media ${mobileFirst.xs} {
     /* font-size: 15px; */
+    font-size: 20px;
   }
 
   @media ${mobileFirst.sm} {
     /* font-size: 20px; */
+    font-size: 80px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    font-size: 40px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
   }
 `;

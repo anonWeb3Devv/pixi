@@ -14,7 +14,6 @@ export const LorePageContainer = styled.section`
   /* grid-template-columns: repeat(12, 1fr); */
   /* align-items: center; */
   min-height: 100svh;
-
   position: relative;
   /* overflow: hidden; */
   overflow-y: visible;
@@ -139,7 +138,7 @@ export const PixiTopLeftImgContainer = styled.div`
 export const PixiTopLeftImg = styled.img`
   height: 100%;
   width: 100%;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 `;
 
 export const PixiTopRightImgContainer = styled.div`
@@ -160,7 +159,7 @@ export const PixiTopRightImgContainer = styled.div`
 export const PixiTopRightImg = styled.img`
   height: 100%;
   width: 100%;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 `;
 
 export const PixiBottomRightImgContainer = styled.div`
@@ -196,7 +195,7 @@ export const PixiBottomRightImg = styled.img`
   /* opacity: 0.8; */
   height: 100%;
   width: 100%;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   /* opacity: 0.8; */
 `;
 
@@ -232,5 +231,5 @@ export const PixiBottomLeftImgContainer = styled.div`
 export const PixiBottomLeftImg = styled.img`
   height: 100%;
   width: 100%;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 `;
