@@ -45,11 +45,11 @@ export function MobileNav({
           Home
         </HashLink>
       </MobileNavMenuItem>
-      {/* <MobileNavMenuItem>
+      <MobileNavMenuItem>
         <HashLink to="/#about" onClick={() => setIsMobileNavOpen(false)}>
           About
         </HashLink>
-      </MobileNavMenuItem> */}
+      </MobileNavMenuItem>
       <MobileNavMenuItem>
         <RouterLink
           // activeClass="active"
