@@ -151,7 +151,6 @@ export function Dino() {
         style={{
           position: "relative",
           height: "400px",
-          borderRadius: "10px",
           overflow: "hidden",
           marginBlock: "50px",
         }}

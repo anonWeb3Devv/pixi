@@ -1,8 +1,4 @@
-import {
-  LandingContainer,
-  LandingHeading,
-  LandingHintText,
-} from "./landing-section.styles";
+import { LandingContainer, LandingHintText } from "./landing-section.styles";
 import { Overlay } from "../../components/Overlay";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useState } from "react";
@@ -44,15 +40,10 @@ export function LandingSection({
             ) : (
               <>
                 <span className="desktop-only">CA: {DATA.contractAddress}</span>{" "}
-                {/* <span className="mobile-only">CA: copy to clipboard</span> */}
               </>
             )}
           </LandingHintText>
         </CopyToClipboard>
-
-        <LandingHeading>
-          The first pixelated cat meme coin on solana
-        </LandingHeading>
       </LandingContainer>
     </>
   );

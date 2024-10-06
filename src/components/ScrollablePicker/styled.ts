@@ -11,7 +11,7 @@ export const ScrollablePickerWrapper = styled.div`
   gap: 20px;
   scrollbar-width: thin;
   background-color: ${theme.colors.secondary};
-  border-radius: 10px;
+  /* border-radius: 10px; */
 
   &::-webkit-scrollbar {
     height: 8px;
@@ -19,7 +19,7 @@ export const ScrollablePickerWrapper = styled.div`
 
   &::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    /* border-radius: 10px; */
   }
 
   @media ${mobileFirst.xs} {
@@ -32,7 +32,7 @@ export const PreviewImage = styled.img`
   width: 90px;
   height: 90px;
   cursor: pointer;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   /* transition: transform 0.3s; */
   border: 2px dotted white;
 

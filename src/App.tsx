@@ -9,19 +9,12 @@ function App() {
 
   return (
     <main>
-      {/* {!isOverlayOpen && <Header />} */}
-
       <LandingSection
         isOverlayOpen={isOverlayOpen}
         setIsOverlayOpen={setIsOverlayOpen}
       />
-
       <AboutSection />
-
-      {/* <MemesBackground> */}
       <MemeSection />
-      {/* </MemesBackground> */}
-
       <Socials />
     </main>
   );

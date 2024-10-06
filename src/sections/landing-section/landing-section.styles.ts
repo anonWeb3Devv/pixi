@@ -11,34 +11,41 @@ export const LandingContainer = styled.div`
   overflow: hidden;
   padding-inline: 8px;
   margin-inline: auto;
-  background-color: #a0b4f9;
-  background-image: 
-  /* linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0) 80%,
-      #ffffff
-    ), */ url("/assets/pixi-bg.png");
+  background: url("/assets/pixi-bg.png") no-repeat center center;
   background-size: cover;
-  background-repeat: no-repeat;
-  /* background-position-y: -20px; */
+
+  /* Linear gradient that transitions from transparent to #B4C9FF */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0; /* Start from the top */
+    left: 0;
+    right: 0;
+    bottom: 0; /* Extend to the bottom */
+    /* background: linear-gradient(to bottom, transparent, #c2d3fc); */
+    z-index: 1; /* Ensure it's above the background image */
+  }
 
   @media screen and (max-width: 768px) {
-    background-position-x: 88%;
-    background-position-y: 100px;
-    background-size: cover;
+    background-position: 85.5% 0px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    /* background-position: 93%; */
   }
 `;
 
 export const LandingHeading = styled.h1`
   margin-bottom: 100px;
-  font-family: "Handjet-SemiBold";
+  font-family: "Handjet-Regular";
   text-align: center;
   color: #fff;
   text-transform: uppercase;
   font-size: 25px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
   width: 950px;
-  border-radius: 10px;
+  z-index: 100000000;
+  /* border-radius: 10px; */
   border: #fff dotted;
 
   @media ${mobileFirst.sm} {
@@ -48,7 +55,7 @@ export const LandingHeading = styled.h1`
 
   @media ${mobileFirst.md} {
     font-size: 60px;
-    width: 55%; // Adjust the width for medium screens
+    width: 25%; // Adjust the width for medium screens
   }
 
   @media (max-width: 768px) {
@@ -64,20 +71,31 @@ export const LandingHintText = styled.span`
   font-family: "Handjet-Light";
   margin-bottom: 40px;
   text-align: center;
-
-  font-size: 15px;
+  font-size: 40px;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
+  margin-bottom: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* border-radius: 10px; */
   border: #fff dotted;
   padding: 10px 15px;
   color: #fff;
+  z-index: 10;
 
   @media ${mobileFirst.xs} {
     /* font-size: 15px; */
+    font-size: 20px;
   }
 
   @media ${mobileFirst.sm} {
     /* font-size: 20px; */
+    font-size: 70px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    font-size: 40px;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
   }
 `;
