@@ -29,6 +29,10 @@ export const LandingContainer = styled.div`
   @media screen and (max-width: 768px) {
     background-position: 85.5% 0px;
   }
+
+  @media screen and (max-width: 1024px) {
+    /* background-position: 93%; */
+  }
 `;
 
 export const LandingHeading = styled.h1`

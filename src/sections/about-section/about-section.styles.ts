@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { mobileFirst } from "../../constants/breakpoints";
 
 export const LorePageContainer = styled.section`
-  max-height: 50svh;
+  max-height: 100svh;
   position: relative;
   overflow-y: visible;
   overflow-x: clip;
@@ -38,7 +38,8 @@ export const Container = styled.div`
 
 export const LorePageTextContainer = styled.div`
   text-align: center;
-  margin-top: -100px;
+  margin-top: 50px;
+  z-index: 2000;
 
   /* grid-column: 1 / 7; */
   /* display: flex; */
@@ -100,11 +101,11 @@ export const PixiMainImage = styled.img`
 export const PixiTopLeftImgContainer = styled.div`
   position: absolute;
   filter: blur(5px);
-  height: 500px;
-  width: 500px;
-  top: 0;
-  left: 100px;
-  z-index: -1;
+  height: 300px;
+  width: 300px;
+  top: 100px;
+  left: -50px;
+  z-index: 200;
   opacity: 0.6;
 
   /* Animation */
@@ -123,7 +124,14 @@ export const PixiTopLeftImgContainer = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    display: none;
+    /* display: none; */
+    height: 200px;
+    width: 200px;
+    top: 250px;
+    left: -20px;
+  }
+
+  @media screen and (max-width: 1024px) {
   }
 `;
 
@@ -136,15 +144,22 @@ export const PixiTopLeftImg = styled.img`
 export const PixiTopRightImgContainer = styled.div`
   position: absolute;
   filter: blur(2px);
-  opacity: 0.4;
+  opacity: 0.2;
   top: 0;
   right: 20px;
-  height: 500px;
-  width: 500px;
-  z-index: -1;
+  height: 400px;
+  width: 400px;
+  z-index: 200;
 
   @media screen and (max-width: 768px) {
-    display: none;
+    /* display: none; */
+    height: 150px;
+    width: 150px;
+    top: 50px;
+    right: -50px;
+  }
+
+  @media screen and (max-width: 1024px) {
   }
 `;
 
@@ -158,11 +173,11 @@ export const PixiBottomRightImgContainer = styled.div`
   position: absolute;
   filter: blur(3px);
   opacity: 0.4;
-  bottom: -100px;
+  bottom: 100px;
   right: 100px;
   height: 400px;
   width: 400px;
-  z-index: -1;
+  z-index: 200;
 
   animation: moveUpDown 4s ease-in-out infinite;
 
@@ -179,7 +194,14 @@ export const PixiBottomRightImgContainer = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    display: none;
+    /* display: none; */
+    height: 200px;
+    width: 200px;
+    top: 500px;
+    right: -100px;
+  }
+
+  @media screen and (max-width: 1024px) {
   }
 `;
 
@@ -195,28 +217,22 @@ export const PixiBottomLeftImgContainer = styled.div`
   position: absolute;
   filter: blur(6px);
   opacity: 0.3;
-  height: 400px;
-  width: 400px;
+  height: 600px;
+  width: 600px;
   bottom: 0;
   left: -100px;
-  z-index: -1;
-
-  animation: moveUpDown 4s ease-in-out infinite;
-
-  @keyframes moveUpDown {
-    0% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(5px);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
+  z-index: 200;
 
   @media screen and (max-width: 768px) {
-    display: none;
+    /* display: none; */
+    height: 100px;
+    width: 100px;
+    bottom: -30px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    height: 250px;
+    width: 250px;
   }
 `;
 

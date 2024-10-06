@@ -1,21 +1,17 @@
 import {
-  // Text,
   LorePageContainer,
   LorePageTextContainer,
-  PixiMainImage,
-  PixiImageMainContainer,
-  PixiTopLeftImgContainer,
-  PixiTopLeftImg,
-  PixiTopRightImgContainer,
-  PixiTopRightImg,
-  PixiBottomLeftImgContainer,
-  PixiBottomLeftImg,
-  PixiBottomRightImgContainer,
-  PixiBottomRightImg,
   Container,
   Heading,
+  PixiBottomLeftImg,
+  PixiBottomLeftImgContainer,
+  PixiBottomRightImg,
+  PixiBottomRightImgContainer,
+  PixiTopLeftImg,
+  PixiTopLeftImgContainer,
+  PixiTopRightImg,
+  PixiTopRightImgContainer,
 } from "./about-section.styles";
-import pixiMain from "/assets/pixiMain.png";
 import pixiTopRight from "/assets/pixiZen.png";
 import pixiBottomRight from "/assets/pixiRich.jpeg";
 import pixiTopLeft from "/assets/pixiBath.png";
@@ -27,16 +23,9 @@ export function AboutSection() {
       <Container>
         <LorePageTextContainer>
           <Heading>the pixelated cat of solana</Heading>
-          {/* <Text>The pixelated cat of solana.</Text> */}
         </LorePageTextContainer>
-        {/* 
-        <PixiImageMainContainer>
-          <PixiMainImage src={pixiMain} />
-        </PixiImageMainContainer> */}
       </Container>
-
-      {/* Image Containers */}
-      {/* <PixiTopLeftImgContainer>
+      <PixiTopLeftImgContainer>
         <PixiTopLeftImg src={pixiTopLeft} />
       </PixiTopLeftImgContainer>
       <PixiTopRightImgContainer>
@@ -47,7 +36,7 @@ export function AboutSection() {
       </PixiBottomLeftImgContainer>
       <PixiBottomRightImgContainer>
         <PixiBottomRightImg src={pixiBottomRight} />
-      </PixiBottomRightImgContainer> */}
+      </PixiBottomRightImgContainer>
     </LorePageContainer>
   );
 }

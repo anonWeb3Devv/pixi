@@ -13,7 +13,6 @@ import useStore from "../../store/useStore";
 export function Header() {
   const { isMobile, setIsMobile } = useStore();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  // const [isVisible, setIsVisible] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
 
   function scrollToTop() {
@@ -26,7 +25,6 @@ export function Header() {
   }
 
   useEffect(() => {
-    // find if the user is scrolling
     const handleScroll = () => {
       setIsScrolling(window.scrollY > 10);
     };
@@ -37,18 +35,6 @@ export function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setIsVisible(window.scrollY > 10);
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
 
   useEffect(() => {
     const handleResize = () => {
