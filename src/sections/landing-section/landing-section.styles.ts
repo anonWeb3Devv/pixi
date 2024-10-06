@@ -6,7 +6,7 @@ export const LandingContainer = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  max-height: 100svh;
+  min-height: 100svh;
   position: relative;
   overflow: hidden;
   padding-inline: 8px;
@@ -75,7 +75,7 @@ export const LandingHintText = styled.span`
   border: #fff dotted;
   padding: 10px 15px;
   color: #fff;
-  z-index: 10000000;
+  z-index: 10;
 
   @media ${mobileFirst.xs} {
     /* font-size: 15px; */

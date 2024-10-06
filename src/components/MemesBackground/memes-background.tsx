@@ -13,10 +13,11 @@ const AccessoryBackgroundWrapper = styled.div`
 export function MemesBackground({ children }: { children: React.ReactNode }) {
   return (
     <AccessoryBackgroundWrapper>
-      <Accessory1 src="/assets/3.png" />
+      {/* <Accessory1 src="/assets/3.png" />
       <Accessory2 src="/assets/6.png" />
       <Accessory3 src="/assets/13.png" />
-      <Accessory4 src="/assets/19.png" />
+      <Accessory4 src="/assets/19.png" /> */}
+      <Accessory1 src="/assets/pixiAssets/skin/1.png" />
 
       {children}
     </AccessoryBackgroundWrapper>

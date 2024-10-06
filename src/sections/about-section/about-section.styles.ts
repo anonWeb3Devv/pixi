@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { mobileFirst } from "../../constants/breakpoints";
 
 export const LorePageContainer = styled.section`
-  max-height: 100svh;
+  max-height: 50svh;
   position: relative;
   overflow-y: visible;
   overflow-x: clip;

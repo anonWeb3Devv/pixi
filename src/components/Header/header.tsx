@@ -81,9 +81,9 @@ export function Header() {
               </HashLink>
             </NavItemSpan>
 
-            {/* <NavItemSpan>
+            <NavItemSpan>
               <HashLink to="/#about">about</HashLink>
-            </NavItemSpan> */}
+            </NavItemSpan>
             <NavItemSpan>
               <RouterLink to="/runner">pixi runner</RouterLink>
             </NavItemSpan>
