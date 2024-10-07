@@ -3,6 +3,13 @@ import { OverlayWrapper, OverlayButton } from "./overlay.styles";
 import useSound from "use-sound";
 import bgMusic from "/assets/sounds/bgMusic2.mp3";
 
+// 🎵 Music "Happy Dragon" by ‘Hicks’
+//    • happy dragon 🐲 jazz lofi vibes (no co...
+// 💿 Listen everywhere:
+// https://ffm.to/hickshappydragon
+// ✅ For more Copyright Free Music visit:
+// https://youtube.tamamusic.com
+
 const FADE_OUT_DURATION = 1000;
 
 type OverlayProps = {
