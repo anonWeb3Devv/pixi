@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
 import { OverlayWrapper, OverlayButton } from "./overlay.styles";
+import useSound from "use-sound";
+import bgMusic from "/assets/sounds/bgMusic2.mp3";
+
+// 🎵 Music "Happy Dragon" by ‘Hicks’
+//    • happy dragon 🐲 jazz lofi vibes (no co...
+// 💿 Listen everywhere:
+// https://ffm.to/hickshappydragon
+// ✅ For more Copyright Free Music visit:
+// https://youtube.tamamusic.com
 
 const FADE_OUT_DURATION = 1000;
 
@@ -11,12 +20,14 @@ type OverlayProps = {
 export function Overlay({ isOverlayOpen, setIsOverlayOpen }: OverlayProps) {
   const [fadeOut, setFadeOut] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [playBgMusic] = useSound(bgMusic);
 
   function handleClick() {
     setIsButtonClicked(true);
     setTimeout(() => {
       setFadeOut(true);
       setTimeout(() => setIsOverlayOpen(false), FADE_OUT_DURATION);
+      playBgMusic();
     }, 700);
   }
 
